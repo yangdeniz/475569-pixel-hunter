@@ -1,7 +1,7 @@
 # Личный проект «Пиксель хантер» [![Build status][travis-image]][travis-url]
 
 * Студент: [Марина Сунко](https://up.htmlacademy.ru/ecmascript/3/user/475569).
-* Наставник: `Неизвестно`.
+* Наставник: [Дмитрий Бородий](https://htmlacademy.ru/profile/id384171).
 
 ---
 
