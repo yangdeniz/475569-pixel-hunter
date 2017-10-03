@@ -4,24 +4,19 @@ let activeScreen = 0;
 
 showScreen(activeScreen);
 
-let pressedKeys = [];
+const leftArrow = 37;
+const rightArrow = 39;
 
 document.onkeydown = function (e) {
-  pressedKeys.push(e.keyCode);
-  if (pressedKeys.indexOf(18) < 0 && (pressedKeys.indexOf(39) < 0 || pressedKeys.indexOf(37) < 0)) {
+  if (!e.altKey) {
     return;
   }
-  if (pressedKeys.indexOf(39) >= 0 && activeScreen < screens.length - 1) {
-    activeScreen++;
-  } else if (pressedKeys.indexOf(37) >= 0 && activeScreen > 0) {
+  if (e.keyCode === leftArrow && activeScreen > 0) {
     activeScreen--;
+  } else if (e.keyCode === rightArrow && activeScreen < screens.length - 1) {
+    activeScreen++;
   }
   showScreen(activeScreen);
-};
-
-document.onkeyup = function (e) {
-  const key = pressedKeys.indexOf(e.keyCode);
-  pressedKeys.splice(key, 1);
 };
 
 function showScreen(number) {
