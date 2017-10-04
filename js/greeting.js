@@ -28,8 +28,15 @@ const template = `<div class="greeting central--blur">
 
 const greeting = getElement(template);
 
-document.querySelector(`.greeting__continue`).onclick = function () {
-  showScreen(rules);
-};
+document.querySelector(`main`).addEventListener(`click`, function (event) {
+  let target = event.target;
+  while (target != document.querySelector(`main`)) {
+    if (target.classList.contains(`greeting__continue`)) {
+      showScreen(rules);
+      return;
+    }
+    target = target.parentNode;
+  }
+});
 
 export default greeting;
