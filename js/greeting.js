@@ -30,7 +30,7 @@ const greeting = getElement(template);
 
 document.querySelector(`main`).addEventListener(`click`, function (event) {
   let target = event.target;
-  while (target != null && target != this) {
+  while (target !== null && target !== document.querySelector(`main`)) {
     if (target.classList.contains(`greeting__continue`)) {
       showScreen(rules);
       return;

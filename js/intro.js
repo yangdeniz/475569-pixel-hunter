@@ -21,8 +21,7 @@ const template = `<div id="main" class="central__content">
 
 const intro = getElement(template);
 
-document.querySelector(`.intro__asterisk`).addEventListener(`click`, function (event) {
-  event.stopImmediatePropagation();
+document.querySelector(`.intro__asterisk`).addEventListener(`click`, function () {
   showScreen(greeting);
 });
 

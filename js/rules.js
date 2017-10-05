@@ -62,17 +62,17 @@ document.querySelector(`main`).addEventListener(`click`, function (event) {
     return;
   }
   showScreen(game1);
-  this.dataset.game = 1;
+  document.querySelector(`main`).dataset.game = `1`;
 });
 
-function hasOnlySpaces (string) {
+function hasOnlySpaces(string) {
   const symbols = string.split(``);
   for (let i = 0; i < symbols.length; i++) {
-    if (symbols[i] != ` `) {
+    if (symbols[i] !== ` `) {
       return false;
     }
   }
   return true;
-};
+}
 
 export default rules;

@@ -1,6 +1,4 @@
 import getElement from './get-element';
-import greeting from './greeting';
-import showScreen from './show-screen';
 
 const template = `<header class="header">
 <div class="header__back">
