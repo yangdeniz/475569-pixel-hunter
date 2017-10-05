@@ -58,4 +58,18 @@ const template = `<header class="header">
 
 const game3 = getElement(template);
 
+document.querySelector(`main`).addEventListener(`click`, function (event) {
+  if (this.dataset.game != 3) {
+    return;
+  }
+  let target = event.target;
+  while (target != `main`) {
+    if (target.classList.contains(`game__option`)) {
+      showScreen(stats);
+      return;
+    }
+  }
+  target = target.parentNode;
+});
+
 export default game3;

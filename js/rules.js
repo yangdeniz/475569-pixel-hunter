@@ -62,6 +62,7 @@ document.querySelector(`main`).addEventListener(`click`, function (event) {
     return;
   }
   showScreen(game1);
+  this.dataset.game = 1;
 });
 
 function hasOnlySpaces (string) {

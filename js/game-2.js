@@ -2,6 +2,7 @@ import getElement from './get-element';
 import game3 from './game-3';
 import greeting from './greeting';
 import showScreen from './show-screen';
+import answerIsSelected from './check-answers';
 
 const template = `<header class="header">
 <div class="header__back">
@@ -59,5 +60,19 @@ const template = `<header class="header">
 </footer>`;
 
 const game2 = getElement(template);
+
+document.querySelector(`main`).addEventListener(`change`, function (event) {
+  if (this.dataset.game != 2) {
+    return;
+  }
+  const target = event.target;
+  if (target.type != `radio`) {
+    return;
+  }
+  if (answerIsSelected(document.querySelectorAll(`input[name=question1]`))) {
+    showScreen(game3);
+    this.dataset.game = 3;
+  }
+});
 
 export default game2;
