@@ -39,4 +39,39 @@ const template = `<header class="header">
 
 const rules = getElement(template);
 
+document.querySelector(`main`).addEventListener(`input`, function (event) {
+  const target = event.target;
+  if (!target.classList.contains(`rules__input`)) {
+    return;
+  }
+  if (target.value && !hasOnlySpaces(target.value)) {
+    document.querySelector(`.rules__button`).disabled = false;
+    return;
+  }
+  if (!target.value) {
+    document.querySelector(`.rules__button`).disabled = true;
+  }
+});
+
+document.querySelector(`main`).addEventListener(`click`, function (event) {
+  const target = event.target;
+  if (!target.classList.contains(`rules__button`)) {
+    return;
+  }
+  if (target.disabled === true) {
+    return;
+  }
+  showScreen(game1);
+});
+
+function hasOnlySpaces (string) {
+  const symbols = string.split(``);
+  for (let i = 0; i < symbols.length; i++) {
+    if (symbols[i] != ` `) {
+      return false;
+    }
+  }
+  return true;
+};
+
 export default rules;
