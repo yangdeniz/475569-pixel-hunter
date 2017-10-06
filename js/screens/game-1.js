@@ -1,7 +1,7 @@
-import getElement from './get-element';
-import game3 from './game-3';
-import showScreen from './show-screen';
-import answerIsSelected from './check-answers';
+import getElementFromTemplate from '../utils/get-element-from-template';
+import showScreen from '../utils/show-screen';
+import answerIsSelected from '../utils/check-answers';
+import game2 from './game-2';
 
 const template = `<header class="header">
 <div class="header__back">
@@ -18,16 +18,27 @@ const template = `<header class="header">
 </div>
 </header>
 <div class="game">
-<p class="game__task">Угадай, фото или рисунок?</p>
-<form class="game__content  game__content--wide">
+<p class="game__task">Угадайте для каждого изображения фото или рисунок?</p>
+<form class="game__content">
   <div class="game__option">
-    <img src="http://placehold.it/705x455" alt="Option 1" width="705" height="455">
-    <label class="game__answer  game__answer--photo">
+    <img src="http://placehold.it/468x458" alt="Option 1" width="468" height="458">
+    <label class="game__answer game__answer--photo">
       <input name="question1" type="radio" value="photo">
       <span>Фото</span>
     </label>
-    <label class="game__answer  game__answer--wide  game__answer--paint">
+    <label class="game__answer game__answer--paint">
       <input name="question1" type="radio" value="paint">
+      <span>Рисунок</span>
+    </label>
+  </div>
+  <div class="game__option">
+    <img src="http://placehold.it/468x458" alt="Option 2" width="468" height="458">
+    <label class="game__answer  game__answer--photo">
+      <input name="question2" type="radio" value="photo">
+      <span>Фото</span>
+    </label>
+    <label class="game__answer  game__answer--paint">
+      <input name="question2" type="radio" value="paint">
       <span>Рисунок</span>
     </label>
   </div>
@@ -38,11 +49,11 @@ const template = `<header class="header">
     <li class="stats__result stats__result--slow"></li>
     <li class="stats__result stats__result--fast"></li>
     <li class="stats__result stats__result--correct"></li>
-    <li class="stats__result stats__result--wrong"></li>
     <li class="stats__result stats__result--unknown"></li>
-    <li class="stats__result stats__result--slow"></li>
     <li class="stats__result stats__result--unknown"></li>
-    <li class="stats__result stats__result--fast"></li>
+    <li class="stats__result stats__result--unknown"></li>
+    <li class="stats__result stats__result--unknown"></li>
+    <li class="stats__result stats__result--unknown"></li>
     <li class="stats__result stats__result--unknown"></li>
   </ul>
 </div>
@@ -58,21 +69,22 @@ const template = `<header class="header">
 </div>
 </footer>`;
 
-const game2 = getElement(template);
+const game1 = getElementFromTemplate(template);
 
-document.querySelector(`main`).addEventListener(`change`, function (event) {
-  const main = document.querySelector(`main`);
-  if (main.dataset.game !== `2`) {
+document.querySelector(`body`).addEventListener(`click`, function (event) {
+  const body = document.querySelector(`body`);
+  if (body.dataset.game !== `1`) {
     return;
   }
   const target = event.target;
   if (target.type !== `radio`) {
     return;
   }
-  if (answerIsSelected(document.querySelectorAll(`input[name=question1]`))) {
-    showScreen(game3);
-    main.dataset.game = `3`;
+  if (answerIsSelected(document.querySelectorAll(`input[name=question1]`))
+    && answerIsSelected(document.querySelectorAll(`input[name=question2]`))) {
+    showScreen(game2);
+    body.dataset.game = `2`;
   }
 });
 
-export default game2;
+export default game1;

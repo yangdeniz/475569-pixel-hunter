@@ -1,6 +1,6 @@
-import getElement from './get-element';
+import getElementFromTemplate from '../utils/get-element-from-template';
+import showScreen from '../utils/show-screen';
 import rules from './rules';
-import showScreen from './show-screen';
 
 const template = `<div class="greeting central--blur">
 <div class="greeting__logo"><img src="img/logo_big.png" width="201" height="89" alt="Pixel Hunter"></div>
@@ -26,11 +26,11 @@ const template = `<div class="greeting central--blur">
 </div>
 </footer>`;
 
-const greeting = getElement(template);
+const greeting = getElementFromTemplate(template);
 
-document.querySelector(`main`).addEventListener(`click`, function (event) {
+document.querySelector(`body`).addEventListener(`click`, function (event) {
   let target = event.target;
-  while (target !== null && target !== document.querySelector(`main`)) {
+  while (target && target !== document.querySelector(`body`)) {
     if (target.classList.contains(`greeting__continue`)) {
       showScreen(rules);
       return;

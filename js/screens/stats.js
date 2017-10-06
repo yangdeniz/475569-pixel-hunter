@@ -1,4 +1,4 @@
-import getElement from './get-element';
+import getElementFromTemplate from '../utils/get-element-from-template';
 
 const template = `<header class="header">
 <div class="header__back">
@@ -119,6 +119,6 @@ const template = `<header class="header">
 </div>
 </footer>`;
 
-const stats = getElement(template);
+const stats = getElementFromTemplate(template);
 
 export default stats;

@@ -1,6 +1,6 @@
-import getElement from './get-element';
+import getElementFromTemplate from '../utils/get-element-from-template';
+import showScreen from '../utils/show-screen';
 import game1 from './game-1';
-import showScreen from './show-screen';
 
 const template = `<header class="header">
 <div class="header__back">
@@ -37,9 +37,9 @@ const template = `<header class="header">
 </div>
 </footer>`;
 
-const rules = getElement(template);
+const rules = getElementFromTemplate(template);
 
-document.querySelector(`main`).addEventListener(`input`, function (event) {
+document.querySelector(`body`).addEventListener(`input`, function (event) {
   const target = event.target;
   if (!target.classList.contains(`rules__input`)) {
     return;
@@ -53,16 +53,16 @@ document.querySelector(`main`).addEventListener(`input`, function (event) {
   }
 });
 
-document.querySelector(`main`).addEventListener(`click`, function (event) {
+document.querySelector(`body`).addEventListener(`click`, function (event) {
   const target = event.target;
   if (!target.classList.contains(`rules__button`)) {
     return;
   }
-  if (target.disabled === true) {
+  if (target.disabled) {
     return;
   }
   showScreen(game1);
-  document.querySelector(`main`).dataset.game = `1`;
+  document.querySelector(`body`).dataset.game = `1`;
 });
 
 function hasOnlySpaces(string) {
