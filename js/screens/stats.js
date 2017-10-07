@@ -1,4 +1,6 @@
 import getElementFromTemplate from '../utils/get-element-from-template';
+import showScreen from '../utils/show-screen';
+import greeting from './greeting';
 
 const template = `<header class="header">
 <div class="header__back">
@@ -120,5 +122,9 @@ const template = `<header class="header">
 </footer>`;
 
 const stats = getElementFromTemplate(template);
+
+stats.querySelector(`.back`).onclick = () => {
+  showScreen(greeting);
+};
 
 export default stats;

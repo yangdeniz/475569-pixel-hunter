@@ -21,8 +21,8 @@ const template = `<div id="main" class="central__content">
 
 const intro = getElementFromTemplate(template);
 
-document.querySelector(`.intro__asterisk`).addEventListener(`click`, function () {
+intro.querySelector(`.intro__asterisk`).onclick = () => {
   showScreen(greeting);
-});
+};
 
 export default intro;
