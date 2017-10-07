@@ -3,7 +3,7 @@ import getGameResult from './points-counting';
 
 describe(`Points counting function`, () => {
 
-  it(`функция должна вернуть -1, игрок допустил четыре ошибки`, () => {
+  it(`функция должна вернуть -1, если игрок допустил четыре ошибки`, () => {
     assert.equal(getGameResult([
       {isCorrectAnswer: false, timeRemained: 15},
       {isCorrectAnswer: true, timeRemained: 20},
@@ -26,7 +26,7 @@ describe(`Points counting function`, () => {
     ], 0), -1);
   });
 
-  it(`фунцкия должна вернуть 1150, если все ответы верны и на каждый ответ затрачено от 10 до 20 сек.`, () => {
+  it(`функция должна вернуть 1150, если все ответы верны и на каждый ответ затрачено от 10 до 20 сек.`, () => {
     assert.equal(getGameResult([
       {isCorrectAnswer: true, timeRemained: 15},
       {isCorrectAnswer: true, timeRemained: 11},
@@ -107,7 +107,7 @@ describe(`Points counting function`, () => {
     ], 3), 650);
   });
 
-  it(`фунцкия должна вернуть 1000, если допущена одна ошибка и на каждый ответ затрачено от 10 до 20 сек.`, () => {
+  it(`функция должна вернуть 1000, если допущена одна ошибка и на каждый ответ затрачено от 10 до 20 сек.`, () => {
     assert.equal(getGameResult([
       {isCorrectAnswer: true, timeRemained: 10},
       {isCorrectAnswer: true, timeRemained: 15},
@@ -134,7 +134,7 @@ describe(`Points counting function`, () => {
     ], 2), 1000);
   });
 
-  it(`фунцкия должна вернуть 850, если допущено две ошибки и на каждый ответ затрачено от 10 до 20 сек.`, () => {
+  it(`функция должна вернуть 850, если допущено две ошибки и на каждый ответ затрачено от 10 до 20 сек.`, () => {
     assert.equal(getGameResult([
       {isCorrectAnswer: true, timeRemained: 12},
       {isCorrectAnswer: false, timeRemained: 15},
@@ -161,7 +161,7 @@ describe(`Points counting function`, () => {
     ], 1), 850);
   });
 
-  it(`фунцкия должна вернуть 700, если допущено три ошибки и на каждый ответ затрачено от 10 до 20 сек.`, () => {
+  it(`функция должна вернуть 700, если допущено три ошибки и на каждый ответ затрачено от 10 до 20 сек.`, () => {
     assert.equal(getGameResult([
       {isCorrectAnswer: true, timeRemained: 16},
       {isCorrectAnswer: true, timeRemained: 13},
