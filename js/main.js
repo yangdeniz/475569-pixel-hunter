@@ -1,27 +1,15 @@
-const screens = document.querySelectorAll(`template`);
+import showScreen from './utils/show-screen';
+import intro from './screens/intro';
+import greeting from './screens/greeting';
 
-let activeScreen = 0;
-
-showScreen(activeScreen);
-
-const leftArrow = 37;
-const rightArrow = 39;
-
-document.onkeydown = function (e) {
-  if (!e.altKey) {
-    return;
-  }
-  if (e.keyCode === leftArrow && activeScreen > 0) {
-    activeScreen--;
-  } else if (e.keyCode === rightArrow && activeScreen < screens.length - 1) {
-    activeScreen++;
-  }
-  showScreen(activeScreen);
+document.onload = function () {
+  showScreen(intro);
 };
 
-function showScreen(number) {
-  if (number < 0 || number > screens.length - 1) {
+document.querySelector(`body`).addEventListener(`click`, function (event) {
+  const target = event.target;
+  if (!target.parentNode.classList.contains(`back`)) {
     return;
   }
-  document.querySelector(`main`).innerHTML = screens[number].innerHTML;
-}
+  showScreen(greeting);
+});
