@@ -3,6 +3,8 @@ import getGameResult from './points-counting';
 
 describe(`Points counting function`, () => {
 
+  // Тесты на корректность подсчета результатов игры
+
   it(`функция должна вернуть -1, если игрок допустил четыре ошибки`, () => {
     assert.equal(getGameResult([
       {isCorrectAnswer: false, timeRemained: 15},
@@ -186,6 +188,166 @@ describe(`Points counting function`, () => {
       {isCorrectAnswer: true, timeRemained: 17},
       {isCorrectAnswer: false, timeRemained: 13},
     ], 0), 700);
+  });
+
+  // Тесты на корректность значений переданных параметров
+
+  it(`функция выкидывает ошибку, если не передан массив ответов или передано некорректное значение`, () => {
+    assert.throws(() => getGameResult(undefined, 3), Error);
+    assert.throws(() => getGameResult(null, 3), Error);
+  });
+
+  it(`функция выкидывает ошибку, если не передано количество жизней или передано некорректное значение`, () => {
+    assert.throws(() => getGameResult([
+      {isCorrectAnswer: true, timeRemained: 25},
+      {isCorrectAnswer: true, timeRemained: 13},
+      {isCorrectAnswer: true, timeRemained: 19},
+      {isCorrectAnswer: false, timeRemained: 14},
+      {isCorrectAnswer: true, timeRemained: 11},
+      {isCorrectAnswer: false, timeRemained: 10},
+      {isCorrectAnswer: true, timeRemained: 20},
+      {isCorrectAnswer: true, timeRemained: 15},
+      {isCorrectAnswer: true, timeRemained: 17},
+      {isCorrectAnswer: false, timeRemained: 13},
+    ], undefined), Error);
+    assert.throws(() => getGameResult([
+      {isCorrectAnswer: true, timeRemained: 25},
+      {isCorrectAnswer: true, timeRemained: 13},
+      {isCorrectAnswer: true, timeRemained: 19},
+      {isCorrectAnswer: false, timeRemained: 14},
+      {isCorrectAnswer: true, timeRemained: 11},
+      {isCorrectAnswer: false, timeRemained: 10},
+      {isCorrectAnswer: true, timeRemained: 20},
+      {isCorrectAnswer: true, timeRemained: 15},
+      {isCorrectAnswer: true, timeRemained: 17},
+      {isCorrectAnswer: false, timeRemained: 13},
+    ], null), Error);
+    assert.throws(() => getGameResult([
+      {isCorrectAnswer: true, timeRemained: 25},
+      {isCorrectAnswer: true, timeRemained: 13},
+      {isCorrectAnswer: true, timeRemained: 19},
+      {isCorrectAnswer: false, timeRemained: 14},
+      {isCorrectAnswer: true, timeRemained: 11},
+      {isCorrectAnswer: false, timeRemained: 10},
+      {isCorrectAnswer: true, timeRemained: 20},
+      {isCorrectAnswer: true, timeRemained: 15},
+      {isCorrectAnswer: true, timeRemained: 17},
+      {isCorrectAnswer: false, timeRemained: 13},
+    ], `0`), Error);
+  });
+
+  it(`Функция выкидывает ошибку, если один из ответов пользователя не передан или передано некорректное значение`, () => {
+    assert.throws(() => getGameResult([
+      {isCorrectAnswer: true, timeRemained: 25},
+      {isCorrectAnswer: true, timeRemained: 13},
+      {isCorrectAnswer: true, timeRemained: 19},
+      {isCorrectAnswer: false, timeRemained: 14},
+      {isCorrectAnswer: true, timeRemained: 11},
+      {isCorrectAnswer: false, timeRemained: 10},
+      {isCorrectAnswer: undefined, timeRemained: 20},
+      {isCorrectAnswer: true, timeRemained: 15},
+      {isCorrectAnswer: true, timeRemained: 17},
+      {isCorrectAnswer: false, timeRemained: 13},
+    ], 0), Error);
+    assert.throws(() => getGameResult([
+      {isCorrectAnswer: true, timeRemained: 25},
+      {isCorrectAnswer: true, timeRemained: 13},
+      {isCorrectAnswer: null, timeRemained: 19},
+      {isCorrectAnswer: false, timeRemained: 14},
+      {isCorrectAnswer: true, timeRemained: 11},
+      {isCorrectAnswer: false, timeRemained: 10},
+      {isCorrectAnswer: true, timeRemained: 20},
+      {isCorrectAnswer: true, timeRemained: 15},
+      {isCorrectAnswer: true, timeRemained: 17},
+      {isCorrectAnswer: false, timeRemained: 13},
+    ], 0), Error);
+    assert.throws(() => getGameResult([
+      {isCorrectAnswer: true, timeRemained: 25},
+      {isCorrectAnswer: true, timeRemained: 13},
+      {isCorrectAnswer: true, timeRemained: 19},
+      {isCorrectAnswer: false, timeRemained: 14},
+      {isCorrectAnswer: 32, timeRemained: 11},
+      {isCorrectAnswer: false, timeRemained: 10},
+      {isCorrectAnswer: true, timeRemained: 20},
+      {isCorrectAnswer: true, timeRemained: 15},
+      {isCorrectAnswer: true, timeRemained: 17},
+      {isCorrectAnswer: false, timeRemained: 13},
+    ], 0), Error);
+    assert.throws(() => getGameResult([
+      {isCorrectAnswer: true, timeRemained: 25},
+      {isCorrectAnswer: true, timeRemained: 13},
+      {isCorrectAnswer: true, timeRemained: 19},
+      {isCorrectAnswer: false, timeRemained: 14},
+      {isCorrectAnswer: true, timeRemained: 11},
+      {isCorrectAnswer: false, timeRemained: 10},
+      {isCorrectAnswer: true, timeRemained: 20},
+      {isCorrectAnswer: true, timeRemained: 15},
+      {isCorrectAnswer: `true`, timeRemained: 17},
+      {isCorrectAnswer: false, timeRemained: 13},
+    ], 0), Error);
+  });
+
+  it(`Функция выкидывает ошибку, если оставшееся время не является числом от 0 до 30`, () => {
+    assert.throws(() => getGameResult([
+      {isCorrectAnswer: true, timeRemained: 25},
+      {isCorrectAnswer: true, timeRemained: 13},
+      {isCorrectAnswer: true, timeRemained: 19},
+      {isCorrectAnswer: false, timeRemained: 14},
+      {isCorrectAnswer: true, timeRemained: 11},
+      {isCorrectAnswer: false, timeRemained: undefined},
+      {isCorrectAnswer: true, timeRemained: 20},
+      {isCorrectAnswer: true, timeRemained: 15},
+      {isCorrectAnswer: true, timeRemained: 17},
+      {isCorrectAnswer: false, timeRemained: 13},
+    ], 0), Error);
+    assert.throws(() => getGameResult([
+      {isCorrectAnswer: true, timeRemained: 25},
+      {isCorrectAnswer: true, timeRemained: 13},
+      {isCorrectAnswer: true, timeRemained: 19},
+      {isCorrectAnswer: false, timeRemained: null},
+      {isCorrectAnswer: true, timeRemained: 11},
+      {isCorrectAnswer: false, timeRemained: 10},
+      {isCorrectAnswer: true, timeRemained: 20},
+      {isCorrectAnswer: true, timeRemained: 15},
+      {isCorrectAnswer: true, timeRemained: 17},
+      {isCorrectAnswer: false, timeRemained: 13},
+    ], 0), Error);
+    assert.throws(() => getGameResult([
+      {isCorrectAnswer: true, timeRemained: 25},
+      {isCorrectAnswer: true, timeRemained: 13},
+      {isCorrectAnswer: true, timeRemained: 19},
+      {isCorrectAnswer: false, timeRemained: 14},
+      {isCorrectAnswer: true, timeRemained: 11},
+      {isCorrectAnswer: false, timeRemained: 10},
+      {isCorrectAnswer: true, timeRemained: 20},
+      {isCorrectAnswer: true, timeRemained: 15},
+      {isCorrectAnswer: true, timeRemained: `17`},
+      {isCorrectAnswer: false, timeRemained: 13},
+    ], 0), Error);
+    assert.throws(() => getGameResult([
+      {isCorrectAnswer: true, timeRemained: 25},
+      {isCorrectAnswer: true, timeRemained: 13},
+      {isCorrectAnswer: true, timeRemained: -3},
+      {isCorrectAnswer: false, timeRemained: 14},
+      {isCorrectAnswer: true, timeRemained: 11},
+      {isCorrectAnswer: false, timeRemained: 10},
+      {isCorrectAnswer: true, timeRemained: 20},
+      {isCorrectAnswer: true, timeRemained: 15},
+      {isCorrectAnswer: true, timeRemained: 17},
+      {isCorrectAnswer: false, timeRemained: 13},
+    ], 0), Error);
+    assert.throws(() => getGameResult([
+      {isCorrectAnswer: true, timeRemained: 25},
+      {isCorrectAnswer: true, timeRemained: 13},
+      {isCorrectAnswer: true, timeRemained: 19},
+      {isCorrectAnswer: false, timeRemained: 14},
+      {isCorrectAnswer: true, timeRemained: 11},
+      {isCorrectAnswer: false, timeRemained: 35},
+      {isCorrectAnswer: true, timeRemained: 20},
+      {isCorrectAnswer: true, timeRemained: 15},
+      {isCorrectAnswer: true, timeRemained: 17},
+      {isCorrectAnswer: false, timeRemained: 13},
+    ], 0), Error);
   });
 
 });
