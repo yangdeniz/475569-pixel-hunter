@@ -1,4 +1,7 @@
 const getTimer = (timeInSeconds) => {
+  if (typeof timeInSeconds !== `number` || timeInSeconds < 0) {
+    throw new Error(`Ошибка: введено некорректное значение`);
+  }
   return {
     time: timeInSeconds,
     tick() {
