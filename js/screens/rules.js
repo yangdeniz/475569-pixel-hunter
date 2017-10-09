@@ -1,6 +1,7 @@
 import getElementFromTemplate from '../utils/get-element-from-template';
 import showScreen from '../utils/show-screen';
 import game1 from './game-1';
+import greeting from './greeting';
 
 const template = `<header class="header">
 <div class="header__back">
@@ -39,40 +40,22 @@ const template = `<header class="header">
 
 const rules = getElementFromTemplate(template);
 
-document.querySelector(`body`).addEventListener(`input`, function (event) {
-  const target = event.target;
-  if (!target.classList.contains(`rules__input`)) {
-    return;
+rules.querySelector(`.rules__input`).oninput = () => {
+  const value = rules.querySelector(`.rules__input`).value;
+  if (value && value.trim().length > 0) {
+    rules.querySelector(`.rules__button`).disabled = false;
   }
-  if (target.value && !hasOnlySpaces(target.value)) {
-    document.querySelector(`.rules__button`).disabled = false;
-    return;
+  if (!value) {
+    rules.querySelector(`.rules__button`).disabled = true;
   }
-  if (!target.value) {
-    document.querySelector(`.rules__button`).disabled = true;
-  }
-});
+};
 
-document.querySelector(`body`).addEventListener(`click`, function (event) {
-  const target = event.target;
-  if (!target.classList.contains(`rules__button`)) {
-    return;
-  }
-  if (target.disabled) {
-    return;
-  }
+rules.querySelector(`.rules__button`).onclick = () => {
   showScreen(game1);
-  document.querySelector(`body`).dataset.game = `1`;
-});
+};
 
-function hasOnlySpaces(string) {
-  const symbols = string.split(``);
-  for (let i = 0; i < symbols.length; i++) {
-    if (symbols[i] !== ` `) {
-      return false;
-    }
-  }
-  return true;
-}
+rules.querySelector(`.back`).onclick = () => {
+  showScreen(greeting);
+};
 
 export default rules;

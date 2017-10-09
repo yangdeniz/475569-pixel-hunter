@@ -1,6 +1,7 @@
 import getElementFromTemplate from '../utils/get-element-from-template';
 import showScreen from '../utils/show-screen';
 import stats from './stats';
+import greeting from './greeting';
 
 const template = `<header class="header">
 <div class="header__back">
@@ -57,19 +58,16 @@ const template = `<header class="header">
 
 const game3 = getElementFromTemplate(template);
 
-document.querySelector(`body`).addEventListener(`click`, function (event) {
-  const body = document.querySelector(`body`);
-  if (body.dataset.game !== `3`) {
+game3.querySelector(`.game__content`).onclick = (e) => {
+  const target = e.target;
+  if (!target.classList.contains(`game__option`)) {
     return;
   }
-  let target = event.target;
-  while (target && target !== body) {
-    if (target.classList.contains(`game__option`)) {
-      showScreen(stats);
-      return;
-    }
-    target = target.parentNode;
-  }
-});
+  showScreen(stats);
+};
+
+game3.querySelector(`.back`).onclick = () => {
+  showScreen(greeting);
+};
 
 export default game3;

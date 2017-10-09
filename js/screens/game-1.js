@@ -2,6 +2,7 @@ import getElementFromTemplate from '../utils/get-element-from-template';
 import showScreen from '../utils/show-screen';
 import answerIsSelected from '../utils/check-answers';
 import game2 from './game-2';
+import greeting from './greeting';
 
 const template = `<header class="header">
 <div class="header__back">
@@ -71,20 +72,21 @@ const template = `<header class="header">
 
 const game1 = getElementFromTemplate(template);
 
-document.querySelector(`body`).addEventListener(`click`, function (event) {
-  const body = document.querySelector(`body`);
-  if (body.dataset.game !== `1`) {
-    return;
-  }
-  const target = event.target;
+const answersToQuestion1 = game1.querySelectorAll(`input[name=question1]`);
+const answersToQuestion2 = game1.querySelectorAll(`input[name=question2]`);
+
+game1.querySelector(`.game__content`).onclick = (e) => {
+  const target = e.target;
   if (target.type !== `radio`) {
     return;
   }
-  if (answerIsSelected(document.querySelectorAll(`input[name=question1]`))
-    && answerIsSelected(document.querySelectorAll(`input[name=question2]`))) {
+  if (answerIsSelected(answersToQuestion1) && answerIsSelected(answersToQuestion2)) {
     showScreen(game2);
-    body.dataset.game = `2`;
   }
-});
+};
+
+game1.querySelector(`.back`).onclick = () => {
+  showScreen(greeting);
+};
 
 export default game1;
