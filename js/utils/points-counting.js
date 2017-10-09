@@ -1,14 +1,17 @@
+const CORRECT_ANSWER_POINTS = 100;
+const TIME_BONUS = 50;
+
 const QUICK_ANSWER_TIME_REMAINED = 20;
 const SLOW_ANSWER_TIME_REMAINED = 10;
 
-const checkTimeRemained = (timeRemained) => {
+const countCorrectAnswerPoints = (timeRemained) => {
+  let total = CORRECT_ANSWER_POINTS;
   if (timeRemained > QUICK_ANSWER_TIME_REMAINED) {
-    return 150;
+    total += TIME_BONUS;
   } else if (timeRemained < SLOW_ANSWER_TIME_REMAINED) {
-    return 50;
-  } else {
-    return 100;
+    total -= TIME_BONUS;
   }
+  return total;
 };
 
 const getGameResult = (userAnswers, livesRemained) => {
@@ -17,9 +20,6 @@ const getGameResult = (userAnswers, livesRemained) => {
   }
   if (typeof livesRemained !== `number`) {
     throw new Error(`Ошибка: количество оставшихся жизней должно быть числом`);
-  }
-  if (livesRemained < 0) {
-    return -1;
   }
   let total = 0;
   for (const answer of userAnswers) {
@@ -32,7 +32,10 @@ const getGameResult = (userAnswers, livesRemained) => {
     if (!answer.isCorrectAnswer) {
       continue;
     }
-    total += checkTimeRemained(answer.timeRemained);
+    total += countCorrectAnswerPoints(answer.timeRemained);
+  }
+  if (livesRemained < 0) {
+    return -1;
   }
   total += (livesRemained * 50);
   return total;

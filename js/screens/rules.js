@@ -40,19 +40,9 @@ const template = `<header class="header">
 
 const rules = getElementFromTemplate(template);
 
-const hasOnlySpaces = (string) => {
-  const symbols = string.split(``);
-  for (const symbol of symbols) {
-    if (symbol !== ` `) {
-      return false;
-    }
-  }
-  return true;
-};
-
 rules.querySelector(`.rules__input`).oninput = () => {
   const value = rules.querySelector(`.rules__input`).value;
-  if (value && !hasOnlySpaces(value)) {
+  if (value && value.trim().length > 0) {
     rules.querySelector(`.rules__button`).disabled = false;
   }
   if (!value) {
