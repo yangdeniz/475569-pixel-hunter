@@ -1,6 +1,18 @@
 const initialState = Object.freeze({
   level: 0,
-  livesRemained: 3
+  livesRemained: 3,
+  answersStats: [
+    `unknown`,
+    `unknown`,
+    `unknown`,
+    `unknown`,
+    `unknown`,
+    `unknown`,
+    `unknown`,
+    `unknown`,
+    `unknown`,
+    `unknown`
+  ]
 });
 
 export default initialState;

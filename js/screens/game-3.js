@@ -1,6 +1,7 @@
 import getElementFromTemplate from '../utils/get-element-from-template';
 import showScreen from '../utils/show-screen';
 import getHeaderTemplate from '../utils/get-header-template';
+import getFooterStatsTemplate from '../utils/get-footer-stats-template';
 import initialState from '../data/initial-state';
 import stats from './stats';
 import greeting from './greeting';
@@ -19,20 +20,7 @@ const game3Template = `${getHeaderTemplate(initialState)}
     <img src="http://placehold.it/304x455" alt="Option 1" width="304" height="455">
   </div>
 </form>
-<div class="stats">
-  <ul class="stats">
-    <li class="stats__result stats__result--wrong"></li>
-    <li class="stats__result stats__result--slow"></li>
-    <li class="stats__result stats__result--fast"></li>
-    <li class="stats__result stats__result--correct"></li>
-    <li class="stats__result stats__result--wrong"></li>
-    <li class="stats__result stats__result--unknown"></li>
-    <li class="stats__result stats__result--slow"></li>
-    <li class="stats__result stats__result--unknown"></li>
-    <li class="stats__result stats__result--fast"></li>
-    <li class="stats__result stats__result--unknown"></li>
-  </ul>
-</div>
+${getFooterStatsTemplate(initialState)}
 </div>`;
 
 const game3 = getElementFromTemplate(game3Template);

@@ -2,6 +2,7 @@ import getElementFromTemplate from '../utils/get-element-from-template';
 import showScreen from '../utils/show-screen';
 import answerIsSelected from '../utils/check-answers';
 import getHeaderTemplate from '../utils/get-header-template';
+import getFooterStatsTemplate from '../utils/get-footer-stats-template';
 import initialState from '../data/initial-state';
 import game3 from './game-3';
 import greeting from './greeting';
@@ -22,20 +23,7 @@ const game2Template = `${getHeaderTemplate(initialState)}
     </label>
   </div>
 </form>
-<div class="stats">
-  <ul class="stats">
-    <li class="stats__result stats__result--wrong"></li>
-    <li class="stats__result stats__result--slow"></li>
-    <li class="stats__result stats__result--fast"></li>
-    <li class="stats__result stats__result--correct"></li>
-    <li class="stats__result stats__result--wrong"></li>
-    <li class="stats__result stats__result--unknown"></li>
-    <li class="stats__result stats__result--slow"></li>
-    <li class="stats__result stats__result--unknown"></li>
-    <li class="stats__result stats__result--fast"></li>
-    <li class="stats__result stats__result--unknown"></li>
-  </ul>
-</div>
+${getFooterStatsTemplate(initialState)}
 </div>`;
 
 const game2 = getElementFromTemplate(game2Template);
