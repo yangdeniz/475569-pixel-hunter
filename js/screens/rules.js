@@ -1,6 +1,6 @@
 import getElementFromTemplate from '../utils/get-element-from-template';
 import showScreen from '../utils/show-screen';
-import game1 from './game-1';
+import createNextGame from './game';
 import greeting from './greeting';
 
 const rulesTemplate = `<header class="header">
@@ -41,7 +41,7 @@ rules.querySelector(`.rules__input`).oninput = () => {
 };
 
 rules.querySelector(`.rules__button`).onclick = () => {
-  showScreen(game1);
+  showScreen(createNextGame(0));
 };
 
 rules.querySelector(`.back`).onclick = () => {
