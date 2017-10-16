@@ -4,8 +4,8 @@ import initialState from '../data/initial-state';
 import questions from '../data/questions';
 
 const getAnswersTemplate = (option) => {
-  if (!option.answers) {
-    return;
+  if (!option.answer) {
+    return false;
   }
   return `<label class="game__answer game__answer--photo">
       <input name="question${option.number}" type="radio" value="photo">
@@ -34,11 +34,11 @@ const getGameTemplate = (questionNumber) => {
     <p class="game__task">${question.task}</p>
     <form class="game__content${addClassToQuestionForm(question.content)}">
     ${[...question.content].map((option) => {
-      return `<div class="game__option">
+    return `<div class="game__option">
         <img src="${option.image.src}" alt="Option ${option.number}" width="${option.image.width}" height="${option.image.height}">
         ${getAnswersTemplate(option)}
-      </div>`
-    }).join(``)}
+      </div>`;
+  }).join(``)}
   </form>
   ${getFooterStatsTemplate(initialState)}
   </div>`;

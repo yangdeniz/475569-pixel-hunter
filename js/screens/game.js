@@ -1,10 +1,21 @@
-import getGameTemplate from '../utils/get-game-template';
+import getGameTemplate from '../templates/get-game-template';
 import getElementFromTemplate from '../utils/get-element-from-template';
-import answerIsSelected from '../utils/check-answers';
 import showScreen from '../utils/show-screen';
+import answerIsCorrect from '../utils/check-user-answer';
 import questions from '../data/questions';
 import stats from './stats';
 import greeting from './greeting';
+
+const userAnswers = [];
+
+const getSelectedAnswer = (answers) => {
+  for (const answer of answers) {
+    if (answer.checked) {
+      return answer.value;
+    }
+  }
+  return false;
+};
 
 const createNextGame = (gameNumber) => {
   const game = getElementFromTemplate(getGameTemplate(gameNumber));
@@ -18,18 +29,35 @@ const createNextGame = (gameNumber) => {
 
   game.querySelector(`.game__content`).onclick = (e) => {
     const target = e.target;
+    let answer;
     if (game.querySelector(`input[type="radio"]`)) {
       if (target.type !== `radio`) {
         return;
       }
-      for (const option of [...gameOptions]) {
-        if (!answerIsSelected(option)) {
+      answer = [];
+      for (const option of gameOptions) {
+        if (!getSelectedAnswer(option)) {
           return;
+        } else {
+          answer.push(getSelectedAnswer(option));
         }
       }
-    } else if (!target.classList.contains(`game__option`)) {
+    } else {
+      if (!target.classList.contains(`game__option`)) {
         return;
+      } else {
+        const options = game.querySelectorAll(`.game__option`);
+        answer = [...options].indexOf(target);
+      }
     }
+
+    const userAnswer = {
+      isCorrectAnswer: answerIsCorrect({questionNumber: gameNumber, content: answer}),
+      timeRemained: 15
+    };
+
+    userAnswers.push(userAnswer);
+
     if (gameNumber < questions.length - 1) {
       showScreen(createNextGame(++gameNumber));
     } else {

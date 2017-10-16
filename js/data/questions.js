@@ -9,10 +9,7 @@ const questions = [
           width: 468,
           height: 458
         },
-        answers: {
-          photo: true,
-          picture: false
-        }
+        answer: `photo`
       },
       {
         number: `2`,
@@ -21,10 +18,7 @@ const questions = [
           width: 468,
           height: 458
         },
-        answers: {
-          photo: false,
-          picture: true
-        }
+        answer: `picture`
       }
     ])
   },
@@ -38,10 +32,7 @@ const questions = [
           width: 705,
           height: 455
         },
-        answers: {
-          photo: true,
-          picture: false
-        }
+        answer: `photo`
       }
     ])
   },

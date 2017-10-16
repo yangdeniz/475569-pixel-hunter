@@ -1,5 +1,3 @@
-import getElementfromTemplate from '../utils/get-element-from-template';
-
 export default (state) => `<header class="header">
 <div class="header__back">
   <button class="back">
@@ -10,10 +8,10 @@ export default (state) => `<header class="header">
 <h1 class="game__timer">${state.timer}</h1>
 <div class="game__lives">
   ${new Array(3 - state.livesRemained)
-    .fill(`<img src="img/heart__empty.svg" class="game__heart" alt="Life" width="32" height="32">`)
-    .join(``)}
+      .fill(`<img src="img/heart__empty.svg" class="game__heart" alt="Life" width="32" height="32">`)
+      .join(``)}
   ${new Array(state.livesRemained)
-    .fill(`<img src="img/heart__full.svg" class="game__heart" alt="Life" width="32" height="32">`)
-    .join(``)}
+      .fill(`<img src="img/heart__full.svg" class="game__heart" alt="Life" width="32" height="32">`)
+      .join(``)}
 </div>
 </header>`;
