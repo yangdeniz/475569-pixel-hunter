@@ -1,5 +1,6 @@
 import getElementFromTemplate from '../utils/get-element-from-template';
 import showScreen from '../utils/show-screen';
+import initialState from '../data/initial-state';
 import createNextGame from './game';
 import greeting from './greeting';
 
@@ -41,7 +42,7 @@ rules.querySelector(`.rules__input`).oninput = () => {
 };
 
 rules.querySelector(`.rules__button`).onclick = () => {
-  showScreen(createNextGame(0));
+  showScreen(createNextGame(initialState, []));
 };
 
 rules.querySelector(`.back`).onclick = () => {

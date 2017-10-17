@@ -1,12 +1,12 @@
 import getGameTemplate from '../templates/get-game-template';
 import getElementFromTemplate from '../utils/get-element-from-template';
+import getCurrentGameState from '../utils/get-current-game-state';
 import showScreen from '../utils/show-screen';
 import answerIsCorrect from '../utils/check-user-answer';
+import getUserAnswers from '../utils/get-user-answers';
 import questions from '../data/questions';
 import stats from './stats';
 import greeting from './greeting';
-
-const userAnswers = [];
 
 const getSelectedAnswer = (answers) => {
   for (const answer of answers) {
@@ -17,8 +17,8 @@ const getSelectedAnswer = (answers) => {
   return false;
 };
 
-const createNextGame = (gameNumber) => {
-  const game = getElementFromTemplate(getGameTemplate(gameNumber));
+const createNextGame = (gameState, gameUserAnswers) => {
+  const game = getElementFromTemplate(getGameTemplate(gameState));
 
   const gameOptions = new Set();
   let questionNumber = 1;
@@ -51,15 +51,17 @@ const createNextGame = (gameNumber) => {
       }
     }
 
-    const userAnswer = {
-      isCorrectAnswer: answerIsCorrect({questionNumber: gameNumber, content: answer}),
+    const currentUserAnswer = {
+      isCorrectAnswer: answerIsCorrect({questionNumber: gameState.gameNumber, content: answer}),
       timeRemained: 15
     };
 
-    userAnswers.push(userAnswer);
+    const userAnswers = getUserAnswers(gameUserAnswers, currentUserAnswer);
 
-    if (gameNumber < questions.length - 1) {
-      showScreen(createNextGame(++gameNumber));
+    const currentGameState = getCurrentGameState(gameState, currentUserAnswer);
+
+    if (gameState.gameNumber < questions.length - 1) {
+      showScreen(createNextGame(currentGameState, userAnswers));
     } else {
       showScreen(stats);
     }

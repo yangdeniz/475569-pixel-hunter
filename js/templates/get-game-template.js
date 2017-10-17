@@ -1,6 +1,5 @@
-import getHeaderTemplate from '../utils/get-header-template';
-import getFooterStatsTemplate from '../utils/get-footer-stats-template';
-import initialState from '../data/initial-state';
+import getHeaderTemplate from './get-header-template';
+import getFooterStatsTemplate from './get-footer-stats-template';
 import questions from '../data/questions';
 
 const getAnswersTemplate = (option) => {
@@ -27,9 +26,9 @@ const addClassToQuestionForm = (content) => {
   }
 };
 
-const getGameTemplate = (questionNumber) => {
-  const question = questions[questionNumber];
-  return `${getHeaderTemplate(initialState)}
+const getGameTemplate = (gameState) => {
+  const question = questions[gameState.gameNumber];
+  return `${getHeaderTemplate(gameState)}
     <div class="game">
     <p class="game__task">${question.task}</p>
     <form class="game__content${addClassToQuestionForm(question.content)}">
@@ -40,7 +39,7 @@ const getGameTemplate = (questionNumber) => {
       </div>`;
   }).join(``)}
   </form>
-  ${getFooterStatsTemplate(initialState)}
+  ${getFooterStatsTemplate(gameState)}
   </div>`;
 };
 

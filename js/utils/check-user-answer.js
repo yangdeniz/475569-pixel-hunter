@@ -22,10 +22,8 @@ const answerIsCorrect = (userAnswer) => {
         return false;
       }
     }
-  } else {
-    if (!correctAnswer[userAnswer.content].isCorrectAnswer) {
-      return false;
-    }
+  } else if (!correctAnswer[userAnswer.content].isCorrectAnswer) {
+    return false;
   }
   return true;
 };
