@@ -1,7 +1,8 @@
 import getElementFromTemplate from '../utils/get-element-from-template';
 import showScreen from '../utils/show-screen';
 import initialState from '../data/initial-state';
-import createNextGame from './game';
+import questions from '../data/questions';
+import createGameScreen from './game';
 import greeting from './greeting';
 
 const rulesTemplate = `<header class="header">
@@ -42,7 +43,7 @@ rules.querySelector(`.rules__input`).oninput = () => {
 };
 
 rules.querySelector(`.rules__button`).onclick = () => {
-  showScreen(createNextGame(initialState, []));
+  showScreen(createGameScreen(questions[0], initialState, []));
 };
 
 rules.querySelector(`.back`).onclick = () => {

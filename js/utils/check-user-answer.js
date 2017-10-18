@@ -1,31 +1,24 @@
-import questions from '../data/questions';
+export default (answer, question) => {
 
-const answerIsCorrect = (userAnswer) => {
-
-  if (!(userAnswer instanceof Object)) {
-    throw new Error(`Ошибка: некорректный формат ответа пользователя`);
-  }
-  if (typeof userAnswer.questionNumber !== `number`) {
-    throw new Error(`Ошибка: некорректный формат номера вопроса`);
+  if (!(question instanceof Object)) {
+    throw new Error(`Ошибка: некорректный формат вопроса`);
   }
 
-  const correctAnswer = [...questions[userAnswer.questionNumber].content];
+  const correctAnswer = [...question.content];
 
-  if ((correctAnswer[0].answer && !(userAnswer.content instanceof Array))
-  || (correctAnswer[0].isCorrectAnswer && (typeof userAnswer.content !== `number`))) {
-    throw new Error(`Ошибка: некорректный формат содержания ответа`);
+  if ((correctAnswer[0].hasOwnProperty(`answer`) && !(answer instanceof Array))
+  || (correctAnswer[0].hasOwnProperty(`isCorrectAnswer`) && (typeof answer !== `number`))) {
+    throw new Error(`Ошибка: некорректный формат ответа`);
   }
 
-  if (userAnswer.content instanceof Array) {
-    for (let i = 0; i < userAnswer.content.length; i++) {
-      if (userAnswer.content[i] !== correctAnswer[i].answer) {
+  if (answer instanceof Array) {
+    for (let i = 0; i < answer.length; i++) {
+      if (answer[i] !== correctAnswer[i].answer) {
         return false;
       }
     }
-  } else if (!correctAnswer[userAnswer.content].isCorrectAnswer) {
+  } else if (!correctAnswer[answer].isCorrectAnswer) {
     return false;
   }
   return true;
 };
-
-export default answerIsCorrect;

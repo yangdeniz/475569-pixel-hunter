@@ -1,9 +1,8 @@
-import getGameTemplate from '../templates/get-game-template';
+import getGameTemplateByQuestion from '../templates/get-game-template-by-question';
 import getElementFromTemplate from '../utils/get-element-from-template';
 import getCurrentGameState from '../utils/get-current-game-state';
 import showScreen from '../utils/show-screen';
 import answerIsCorrect from '../utils/check-user-answer';
-import getUserAnswers from '../utils/get-user-answers';
 import questions from '../data/questions';
 import stats from './stats';
 import greeting from './greeting';
@@ -17,20 +16,25 @@ const getSelectedAnswer = (answers) => {
   return false;
 };
 
-const createNextGame = (gameState, gameUserAnswers) => {
-  const game = getElementFromTemplate(getGameTemplate(gameState));
+const createGameScreen = (question, state, userAnswers) => {
+
+  const currentQuestionNumber = questions.indexOf(question);
+
+  const game = getElementFromTemplate(getGameTemplateByQuestion(question, state));
 
   const gameOptions = new Set();
-  let questionNumber = 1;
-  while (game.querySelector(`input[name="question${questionNumber}"]`)) {
-    gameOptions.add(game.querySelectorAll(`input[name="question${questionNumber}"]`));
-    questionNumber++;
+  let optionNumber = 1;
+  while (game.querySelector(`input[name="question${optionNumber}"]`)) {
+    gameOptions.add(game.querySelectorAll(`input[name="question${optionNumber}"]`));
+    optionNumber++;
   }
+
+  const isManyOptionsQuestion = !!game.querySelector(`input[type="radio"]`);
 
   game.querySelector(`.game__content`).onclick = (e) => {
     const target = e.target;
     let answer;
-    if (game.querySelector(`input[type="radio"]`)) {
+    if (isManyOptionsQuestion) {
       if (target.type !== `radio`) {
         return;
       }
@@ -38,30 +42,29 @@ const createNextGame = (gameState, gameUserAnswers) => {
       for (const option of gameOptions) {
         if (!getSelectedAnswer(option)) {
           return;
-        } else {
-          answer.push(getSelectedAnswer(option));
         }
+        answer.push(getSelectedAnswer(option));
       }
     } else {
       if (!target.classList.contains(`game__option`)) {
         return;
-      } else {
-        const options = game.querySelectorAll(`.game__option`);
-        answer = [...options].indexOf(target);
       }
+      const options = game.querySelectorAll(`.game__option`);
+      answer = [...options].indexOf(target);
     }
 
     const currentUserAnswer = {
-      isCorrectAnswer: answerIsCorrect({questionNumber: gameState.gameNumber, content: answer}),
+      isCorrectAnswer: answerIsCorrect(answer, question),
       timeRemained: 15
     };
 
-    const userAnswers = getUserAnswers(gameUserAnswers, currentUserAnswer);
+    const currentUserAnswers = [...userAnswers, currentUserAnswer];
 
-    const currentGameState = getCurrentGameState(gameState, currentUserAnswer);
+    const currentGameState = getCurrentGameState(state, currentUserAnswer);
 
-    if (gameState.gameNumber < questions.length - 1) {
-      showScreen(createNextGame(currentGameState, userAnswers));
+    if (currentQuestionNumber < questions.length - 1) {
+      const nextQuestion = questions[currentQuestionNumber + 1];
+      showScreen(createGameScreen(nextQuestion, currentGameState, currentUserAnswers));
     } else {
       showScreen(stats);
     }
@@ -74,4 +77,4 @@ const createNextGame = (gameState, gameUserAnswers) => {
   return game;
 };
 
-export default createNextGame;
+export default createGameScreen;

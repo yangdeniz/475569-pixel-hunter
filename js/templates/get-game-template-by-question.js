@@ -1,6 +1,5 @@
 import getHeaderTemplate from './get-header-template';
 import getFooterStatsTemplate from './get-footer-stats-template';
-import questions from '../data/questions';
 
 const getAnswersTemplate = (option) => {
   if (!option.answer) {
@@ -26,8 +25,7 @@ const addClassToQuestionForm = (content) => {
   }
 };
 
-const getGameTemplate = (gameState) => {
-  const question = questions[gameState.gameNumber];
+const getGameTemplateByQuestion = (question, gameState) => {
   return `${getHeaderTemplate(gameState)}
     <div class="game">
     <p class="game__task">${question.task}</p>
@@ -43,4 +41,4 @@ const getGameTemplate = (gameState) => {
   </div>`;
 };
 
-export default getGameTemplate;
+export default getGameTemplateByQuestion;
