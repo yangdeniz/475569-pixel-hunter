@@ -4,7 +4,7 @@ import getTimer from './get-timer';
 describe(`Timer function`, () => {
 
   it(`Если введенное значение - не число или отрицательное число, функция выкидывает ошибку`, () => {
-    assert.throws(() => getTimer(undefined), Error);
+    assert.throws(() => getTimer(), Error);
     assert.throws(() => getTimer(null), Error);
     assert.throws(() => getTimer(`10`), Error);
     assert.throws(() => getTimer(-30), Error);

@@ -3,8 +3,10 @@ import getElementFromTemplate from '../utils/get-element-from-template';
 import getCurrentGameState from '../utils/get-current-game-state';
 import showScreen from '../utils/show-screen';
 import answerIsCorrect from '../utils/check-user-answer';
+import getGameResult from '../utils/get-game-result';
 import questions from '../data/questions';
-import stats from './stats';
+import gamePoints from '../data/game-points';
+import createStatsScreen from './stats';
 import greeting from './greeting';
 
 const getSelectedAnswer = (answers) => {
@@ -62,11 +64,12 @@ const createGameScreen = (question, state, userAnswers) => {
 
     const currentGameState = getCurrentGameState(state, currentUserAnswer);
 
-    if (currentQuestionNumber < questions.length - 1) {
+    if (currentQuestionNumber >= questions.length - 1 || currentGameState.livesRemained < 0) {
+      const gameResult = getGameResult(currentUserAnswers, currentGameState.livesRemained, gamePoints);
+      showScreen(createStatsScreen(currentGameState, gameResult));
+    } else {
       const nextQuestion = questions[currentQuestionNumber + 1];
       showScreen(createGameScreen(nextQuestion, currentGameState, currentUserAnswers));
-    } else {
-      showScreen(stats);
     }
   };
 

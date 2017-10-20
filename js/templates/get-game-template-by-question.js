@@ -18,11 +18,11 @@ const getAnswersTemplate = (option) => {
 const addClassToQuestionForm = (content) => {
   if (content.size === 1) {
     return ` game__content--wide`;
-  } else if (content.size === 3) {
-    return ` game__content--triple`;
-  } else {
-    return ``;
   }
+  if (content.size === 3) {
+    return ` game__content--triple`;
+  }
+  return ``;
 };
 
 const getGameTemplateByQuestion = (question, gameState) => {
