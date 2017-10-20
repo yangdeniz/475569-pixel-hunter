@@ -1,8 +1,5 @@
-const getElementFromTemplate = (template) => {
-  const element = document.createElement(`main`);
-  element.classList.add(`central`);
+export default (template) => {
+  const element = document.createElement(`div`);
   element.innerHTML = template;
   return element;
 };
-
-export default getElementFromTemplate;

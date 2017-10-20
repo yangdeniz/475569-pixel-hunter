@@ -1,6 +1,4 @@
-const showScreen = (element) => {
+export default (element) => {
   const mainElement = document.querySelector(`main`);
-  mainElement.parentNode.replaceChild(element, mainElement);
+  mainElement.replaceChild(element, mainElement.querySelector(`div`));
 };
-
-export default showScreen;

@@ -1,9 +1,11 @@
 import getElementFromTemplate from '../utils/get-element-from-template';
 import showScreen from '../utils/show-screen';
-import game1 from './game-1';
+import initialState from '../data/initial-state';
+import questions from '../data/questions';
+import createGameScreen from './game';
 import greeting from './greeting';
 
-const template = `<header class="header">
+const rulesTemplate = `<header class="header">
 <div class="header__back">
   <button class="back">
     <img src="img/arrow_left.svg" width="45" height="45" alt="Back">
@@ -26,19 +28,9 @@ const template = `<header class="header">
   <input class="rules__input" type="text" placeholder="Ваше Имя">
   <button class="rules__button  continue" type="submit" disabled>Go!</button>
 </form>
-</div>
-<footer class="footer">
-<a href="https://htmlacademy.ru" class="social-link social-link--academy">HTML Academy</a>
-<span class="footer__made-in">Сделано в <a href="https://htmlacademy.ru" class="footer__link">HTML Academy</a> &copy; 2016</span>
-<div class="footer__social-links">
-  <a href="https://twitter.com/htmlacademy_ru" class="social-link  social-link--tw">Твиттер</a>
-  <a href="https://www.instagram.com/htmlacademy/" class="social-link  social-link--ins">Инстаграм</a>
-  <a href="https://www.facebook.com/htmlacademy" class="social-link  social-link--fb">Фэйсбук</a>
-  <a href="https://vk.com/htmlacademy" class="social-link  social-link--vk">Вконтакте</a>
-</div>
-</footer>`;
+</div>`;
 
-const rules = getElementFromTemplate(template);
+const rules = getElementFromTemplate(rulesTemplate);
 
 rules.querySelector(`.rules__input`).oninput = () => {
   const value = rules.querySelector(`.rules__input`).value;
@@ -51,7 +43,7 @@ rules.querySelector(`.rules__input`).oninput = () => {
 };
 
 rules.querySelector(`.rules__button`).onclick = () => {
-  showScreen(game1);
+  showScreen(createGameScreen(questions[0], initialState, []));
 };
 
 rules.querySelector(`.back`).onclick = () => {
