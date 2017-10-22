@@ -2,22 +2,25 @@ const TIME_TOTAL = 30;
 const QUICK_ANSWER_TIME_REMAINED = 20;
 const SLOW_ANSWER_TIME_REMAINED = 10;
 
-const getGameResult = (userAnswers, livesRemained, points) => {
-  if (!(userAnswers instanceof Array)) {
-    throw new Error(`Ошибка: ответы пользователя не являются массивом`);
+const getGameResult = (state, points) => {
+  if (!(state instanceof Object)) {
+    throw new Error(`Ошибка: не передано состояние игры`);
   }
-  if (typeof livesRemained !== `number`) {
-    throw new Error(`Ошибка: количество оставшихся жизней не является числом`);
+  if (!(state.userAnswers instanceof Array)) {
+    throw new Error(`Ошибка: не переданы ответы пользователя`);
+  }
+  if (typeof state.livesRemained !== `number`) {
+    throw new Error(`Ошибка: не передано количество оставшихся жизней`);
   }
   if (!(points instanceof Object)) {
-    throw new Error(`Ошибка: очки не являются объектом`);
+    throw new Error(`Ошибка: не переданы очки`);
   }
 
   let correctAnswers = 0;
   let quickAnswers = 0;
   let slowAnswers = 0;
 
-  for (const answer of userAnswers) {
+  for (const answer of state.userAnswers) {
     if (typeof answer.isCorrectAnswer !== `boolean`) {
       throw new Error(`Ошибка: ответ пользователя должен быть логическим значением`);
     }
@@ -35,7 +38,7 @@ const getGameResult = (userAnswers, livesRemained, points) => {
     }
   }
 
-  if (livesRemained < 0) {
+  if (state.livesRemained < 0) {
     return -1;
   }
 
@@ -62,7 +65,7 @@ const getGameResult = (userAnswers, livesRemained, points) => {
       }
     },
     lives: {
-      total: livesRemained,
+      total: state.livesRemained,
       points: points.livesBonus,
       getResult() {
         return this.total * this.points;
