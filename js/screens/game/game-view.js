@@ -19,11 +19,17 @@ export default class GameView extends AbstractView {
 
   updateTime() {
     this._timer = this.timer.tick();
-    const time = !this.timer.time ? `Время вышло` : this.timer.time;
-    const timerTemplate = `<h1 class="game__timer">${time}</h1>`;
+    const timerTemplate = `<h1 class="game__timer">${this.timer.time}</h1>`;
     const newTimerElement = getElementFromTemplate(timerTemplate).firstChild;
     const oldTimerElement = this.element.querySelector(`.game__timer`);
-    this.element.querySelector(`.header`).replaceChild(newTimerElement, oldTimerElement);
+    if (this.timer.time <= 5) {
+      this.element.querySelector(`.header`).removeChild(oldTimerElement);
+      setTimeout(() => {
+        this.element.querySelector(`.header`).insertBefore(newTimerElement, this.element.querySelector(`.game__lives`));
+      }, 500);
+    } else {
+      this.element.querySelector(`.header`).replaceChild(newTimerElement, oldTimerElement);
+    }
   }
 
   get template() {
