@@ -1,11 +1,29 @@
 import AbstractView from '../../abstract-view';
 import answerIsCorrect from '../../utils/check-user-answer';
+import getTimer from '../../utils/get-timer';
+import getElementFromTemplate from '../../utils/get-element-from-template';
 
 export default class GameView extends AbstractView {
 
   constructor(state) {
     super();
     this.state = state;
+  }
+
+  get timer() {
+    if (!this._timer) {
+      return getTimer(30);
+    }
+    return this._timer;
+  }
+
+  updateTime() {
+    this._timer = this.timer.tick();
+    const time = !this.timer.time ? `Время вышло` : this.timer.time;
+    const timerTemplate = `<h1 class="game__timer">${time}</h1>`;
+    const newTimerElement = getElementFromTemplate(timerTemplate).firstChild;
+    const oldTimerElement = this.element.querySelector(`.game__timer`);
+    this.element.querySelector(`.header`).replaceChild(newTimerElement, oldTimerElement);
   }
 
   get template() {
@@ -41,7 +59,7 @@ export default class GameView extends AbstractView {
         <img src="img/logo_small.svg" width="101" height="44">
       </button>
     </div>
-    <h1 class="game__timer">${this.state.timer}</h1>
+    <h1 class="game__timer">${this.timer.time}</h1>
     <div class="game__lives">
       ${new Array(3 - this.state.livesRemained)
       .fill(`<img src="img/heart__empty.svg" class="game__heart" alt="Life" width="32" height="32">`)
@@ -117,7 +135,7 @@ export default class GameView extends AbstractView {
 
       this.userAnswer = {
         isCorrectAnswer: answerIsCorrect(answer, question),
-        timeRemained: 15
+        timeRemained: this.timer.time
       };
 
       this.next();

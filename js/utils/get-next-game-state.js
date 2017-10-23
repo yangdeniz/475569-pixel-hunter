@@ -29,7 +29,6 @@ const getNextGameState = (prevState, answer) => {
   const nextGameState = Object.freeze({
     gameNumber: prevState.gameNumber + 1,
     question: questions[prevState.gameNumber + 1] || false,
-    timer: 30,
     livesRemained: getLivesRemained(prevState.livesRemained, answer),
     userAnswers: [...(prevState.userAnswers), answer],
     answersStats: stats

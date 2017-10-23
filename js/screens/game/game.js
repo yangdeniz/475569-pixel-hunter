@@ -11,6 +11,7 @@ const getNextGame = (state) => {
   const game = new GameView(state);
 
   game.next = () => {
+    clearInterval(timer);
     const nextState = getNextGameState(game.state, game.userAnswer);
     if (!nextState.question || nextState.livesRemained < 0) {
       const gameResult = getGameResult(nextState, gamePoints);
@@ -21,8 +22,19 @@ const getNextGame = (state) => {
   };
 
   game.returnBack = () => {
-    showScreen(greeting());
+    showScreen(greeting().element);
   };
+
+  const timer = setInterval(() => {
+    if (!game.timer.time) {
+      game.userAnswer = {
+        isCorrectAnswer: false,
+        timeRemained: 0
+      };
+      game.next();
+    }
+    game.updateTime();
+  }, 1000);
 
   return game;
 
