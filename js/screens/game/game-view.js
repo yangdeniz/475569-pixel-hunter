@@ -2,6 +2,7 @@ import AbstractView from '../../abstract-view';
 import answerIsCorrect from '../../utils/check-user-answer';
 import getTimer from '../../utils/get-timer';
 import getElementFromTemplate from '../../utils/get-element-from-template';
+import resize from '../../utils/resize.js';
 
 export default class GameView extends AbstractView {
 
@@ -114,6 +115,24 @@ export default class GameView extends AbstractView {
     };
 
     const back = this.element.querySelector(`.back`);
+
+    const images = this.element.querySelectorAll(`.game__option img`);
+    this.element.querySelector(`.game__option img`).onload = () => {
+      for (const image of [...images]) {
+        const containerSize = {
+          width: image.width,
+          height: image.height
+        };
+        const imageSize = {
+          width: image.naturalWidth,
+          height: image.naturalHeight
+        }
+        const newSize = resize(containerSize, imageSize);
+        image.width = newSize.width;
+        image.height = newSize.height;
+      }
+    };
+  
 
     content.onclick = (e) => {
       const target = e.target;
