@@ -1,3 +1,5 @@
+import questions from '../data/questions';
+
 const QUICK_ANSWER_TIME_REMAINED = 20;
 const SLOW_ANSWER_TIME_REMAINED = 10;
 
@@ -21,16 +23,17 @@ const getLivesRemained = (prevStateLives, answer) => {
   return prevStateLives;
 };
 
-const getCurrentGameState = (prevState, answer) => {
-  const allAnswers = [...prevState.answersStats];
-  allAnswers[prevState.gameNumber] = getAnswerStats(answer);
-  const currentGameState = Object.freeze({
+const getNextGameState = (prevState, answer) => {
+  const stats = [...prevState.answersStats];
+  stats[prevState.gameNumber] = getAnswerStats(answer);
+  const nextGameState = Object.freeze({
     gameNumber: prevState.gameNumber + 1,
-    timer: 30,
+    question: questions[prevState.gameNumber + 1] || false,
     livesRemained: getLivesRemained(prevState.livesRemained, answer),
-    answersStats: allAnswers
+    userAnswers: [...(prevState.userAnswers), answer],
+    answersStats: stats
   });
-  return currentGameState;
+  return nextGameState;
 };
 
-export default getCurrentGameState;
+export default getNextGameState;

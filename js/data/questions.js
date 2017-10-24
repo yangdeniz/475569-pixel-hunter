@@ -28,11 +28,11 @@ const questions = [
       {
         number: `1`,
         image: {
-          src: `http://placehold.it/705x455`,
+          src: `http://i.imgur.com/DKR1HtB.jpg`,
           width: 705,
           height: 455
         },
-        answer: `http://i.imgur.com/DKR1HtB.jpg`
+        answer: `photo`
       }
     ])
   },

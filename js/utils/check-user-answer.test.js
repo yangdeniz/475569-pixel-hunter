@@ -89,7 +89,7 @@ describe(`Checking user answer function`, () => {
   });
 
   it(`Функция выкидывает ошибку, если ответ пользователя не передан или передано некорректное значение`, () => {
-    assert.throws(() => isCorrectAnswer(undefined, questionGuessTwoImages), Error);
+    assert.throws(() => isCorrectAnswer(), Error);
     assert.throws(() => isCorrectAnswer(null, questionGuessTwoImages), Error);
     assert.throws(() => isCorrectAnswer(`picture`, questionGuessTwoImages), Error);
     assert.throws(() => isCorrectAnswer(1, questionGuessTwoImages), Error);
