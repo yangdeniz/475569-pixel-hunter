@@ -147,7 +147,7 @@ describe(`Points counting function`, () => {
   });
 
   it(`Функция выкидывает ошибку, если не передано состояние игры или передано некорректное значение`, () => {
-    assert.throws(() => getGameResult(undefined, points), Error);
+    assert.throws(() => getGameResult(), Error);
     assert.throws(() => getGameResult(null, points), Error);
   });
 
