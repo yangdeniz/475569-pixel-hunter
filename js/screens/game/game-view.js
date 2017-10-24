@@ -126,13 +126,12 @@ export default class GameView extends AbstractView {
         const imageSize = {
           width: image.naturalWidth,
           height: image.naturalHeight
-        }
+        };
         const newSize = resize(containerSize, imageSize);
         image.width = newSize.width;
         image.height = newSize.height;
       }
     };
-  
 
     content.onclick = (e) => {
       const target = e.target;
@@ -167,7 +166,7 @@ export default class GameView extends AbstractView {
     };
 
     back.onclick = () => {
-      this.returnBack();
+      this.showWarningScreen();
     };
   }
 
@@ -181,6 +180,6 @@ export default class GameView extends AbstractView {
 
   next() {}
 
-  returnBack() {}
+  showWarningScreen() {}
 
 }
