@@ -130,7 +130,7 @@ export default class GameView extends AbstractView {
         const newSize = resize(containerSize, imageSize);
         image.width = newSize.width;
         image.height = newSize.height;
-      }
+      };
     }
 
     content.onclick = (e) => {
