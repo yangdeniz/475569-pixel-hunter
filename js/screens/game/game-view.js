@@ -117,8 +117,8 @@ export default class GameView extends AbstractView {
     const back = this.element.querySelector(`.back`);
 
     const images = this.element.querySelectorAll(`.game__option img`);
-    this.element.querySelector(`.game__option img`).onload = () => {
-      for (const image of [...images]) {
+    for (const image of images) {
+      image.onload = () => {
         const containerSize = {
           width: image.width,
           height: image.height
@@ -131,7 +131,7 @@ export default class GameView extends AbstractView {
         image.width = newSize.width;
         image.height = newSize.height;
       }
-    };
+    }
 
     content.onclick = (e) => {
       const target = e.target;
