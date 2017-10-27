@@ -1,4 +1,5 @@
 import GameView from './game-view';
+import WarningScreenView from './warning-screen-view';
 import getStats from '../stats/stats';
 import greeting from '../greeting/greeting';
 import showScreen from '../../utils/show-screen';
@@ -9,6 +10,8 @@ import gamePoints from '../../data/game-points';
 const getNextGame = (state) => {
 
   const game = new GameView(state);
+
+  const warningScreen = new WarningScreenView();
 
   game.next = () => {
     clearInterval(timer);
@@ -21,11 +24,30 @@ const getNextGame = (state) => {
     }
   };
 
-  game.returnBack = () => {
+  game.showWarningScreen = () => {
+    clearInterval(timer);
+    game.element.appendChild(warningScreen.element);
+  };
+
+  warningScreen.returnBack = () => {
     showScreen(greeting().element);
   };
 
-  const timer = setInterval(() => {
+  warningScreen.continueGame = () => {
+    game.element.removeChild(warningScreen.element);
+    timer = setInterval(() => {
+      if (!game.timer.time) {
+        game.userAnswer = {
+          isCorrectAnswer: false,
+          timeRemained: 0
+        };
+        game.next();
+      }
+      game.updateTime();
+    }, 1000);
+  };
+
+  let timer = setInterval(() => {
     if (!game.timer.time) {
       game.userAnswer = {
         isCorrectAnswer: false,

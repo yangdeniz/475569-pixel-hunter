@@ -51,7 +51,7 @@ const questions = [
       {
         number: `2`,
         image: {
-          src: `https://k42.kn3.net/D2F0370D6.jpg`,
+          src: `https://k32.kn3.net/5C7060EC5.jpg`,
           width: 304,
           height: 455
         },
@@ -97,7 +97,7 @@ const questions = [
       {
         number: `1`,
         image: {
-          src: `http://placehold.it/304x455`,
+          src: `http://i.imgur.com/DKR1HtB.jpg`,
           width: 304,
           height: 455
         },
@@ -106,7 +106,7 @@ const questions = [
       {
         number: `2`,
         image: {
-          src: `http://placehold.it/304x455`,
+          src: `https://k42.kn3.net/D2F0370D6.jpg`,
           width: 304,
           height: 455
         },
@@ -115,7 +115,7 @@ const questions = [
       {
         number: `3`,
         image: {
-          src: `http://placehold.it/304x455`,
+          src: `https://k32.kn3.net/5C7060EC5.jpg`,
           width: 304,
           height: 455
         },
@@ -129,7 +129,7 @@ const questions = [
       {
         number: `1`,
         image: {
-          src: `http://placehold.it/705x455`,
+          src: `https://i.imgur.com/DiHM5Zb.jpg`,
           width: 705,
           height: 455
         },
@@ -143,7 +143,7 @@ const questions = [
       {
         number: `1`,
         image: {
-          src: `http://placehold.it/468x458`,
+          src: `https://k32.kn3.net/5C7060EC5.jpg`,
           width: 468,
           height: 458
         },
@@ -152,7 +152,7 @@ const questions = [
       {
         number: `2`,
         image: {
-          src: `http://placehold.it/468x458`,
+          src: `http://i.imgur.com/1KegWPz.jpg`,
           width: 468,
           height: 458
         },
@@ -166,7 +166,7 @@ const questions = [
       {
         number: `1`,
         image: {
-          src: `http://placehold.it/705x455`,
+          src: `https://k42.kn3.net/CF42609C8.jpg`,
           width: 705,
           height: 455
         },
@@ -180,7 +180,7 @@ const questions = [
       {
         number: `1`,
         image: {
-          src: `http://placehold.it/304x455`,
+          src: `https://k42.kn3.net/D2F0370D6.jpg`,
           width: 304,
           height: 455
         },
@@ -189,7 +189,7 @@ const questions = [
       {
         number: `2`,
         image: {
-          src: `http://placehold.it/304x455`,
+          src: `https://i.imgur.com/DiHM5Zb.jpg`,
           width: 304,
           height: 455
         },
@@ -198,7 +198,7 @@ const questions = [
       {
         number: `3`,
         image: {
-          src: `http://placehold.it/304x455`,
+          src: `http://i.imgur.com/1KegWPz.jpg`,
           width: 304,
           height: 455
         },
@@ -212,7 +212,7 @@ const questions = [
       {
         number: `1`,
         image: {
-          src: `http://placehold.it/468x458`,
+          src: `http://i.imgur.com/1KegWPz.jpg`,
           width: 468,
           height: 458
         },
@@ -221,7 +221,7 @@ const questions = [
       {
         number: `2`,
         image: {
-          src: `http://placehold.it/468x458`,
+          src: `http://i.imgur.com/DKR1HtB.jpg`,
           width: 468,
           height: 458
         },
