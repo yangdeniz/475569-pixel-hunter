@@ -1,3 +1,16 @@
+const points = Object.freeze({
+  correctAnswerPoints: 100,
+  quickAnswerBonus: 50,
+  slowAnswerPenalty: 50,
+  livesBonus: 50
+});
+
+const time = Object.freeze({
+  timeTotal: 30,
+  quickAnswerTimeRemained: 20,
+  slowAnswerTimeRemained: 10
+});
+
 const questions = [
   {
     task: `Угадайте для каждого изображения фото или рисунок?`,
@@ -231,4 +244,14 @@ const questions = [
   }
 ];
 
-export default questions;
+const initialState = Object.freeze({
+  gameNumber: 0,
+  question: questions[0],
+  time: time.timeTotal,
+  livesRemained: 3,
+  userAnswers: [],
+  answersStats: new Array(10).fill(`unknown`),
+  gameResult: -1
+});
+
+export {points, time, questions, initialState};

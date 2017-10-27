@@ -1,15 +1,10 @@
-const TIME_TOTAL = 30;
-const QUICK_ANSWER_TIME_REMAINED = 20;
-const SLOW_ANSWER_TIME_REMAINED = 10;
+import {time} from '../data/data';
 
-const getGameResult = (state, points) => {
-  if (!(state instanceof Object)) {
-    throw new Error(`Ошибка: не передано состояние игры`);
-  }
-  if (!(state.userAnswers instanceof Array)) {
+const getGameResult = (answers, lives, points) => {
+  if (!(answers instanceof Array)) {
     throw new Error(`Ошибка: не переданы ответы пользователя`);
   }
-  if (typeof state.livesRemained !== `number`) {
+  if (typeof lives !== `number`) {
     throw new Error(`Ошибка: не передано количество оставшихся жизней`);
   }
   if (!(points instanceof Object)) {
@@ -20,25 +15,25 @@ const getGameResult = (state, points) => {
   let quickAnswers = 0;
   let slowAnswers = 0;
 
-  for (const answer of state.userAnswers) {
+  for (const answer of answers) {
     if (typeof answer.isCorrectAnswer !== `boolean`) {
       throw new Error(`Ошибка: ответ пользователя должен быть логическим значением`);
     }
-    if (typeof answer.timeRemained !== `number` || answer.timeRemained < 0 || answer.timeRemained > TIME_TOTAL) {
+    if (typeof answer.timeRemained !== `number` || answer.timeRemained < 0 || answer.timeRemained > time.timeTotal) {
       throw new Error(`Ошибка: оставшееся время должно быть числом от 0 до 30`);
     }
     if (!answer.isCorrectAnswer) {
       continue;
     }
     correctAnswers++;
-    if (answer.timeRemained > QUICK_ANSWER_TIME_REMAINED) {
+    if (answer.timeRemained > time.quickAnswerTimeRemained) {
       quickAnswers++;
-    } else if (answer.timeRemained < SLOW_ANSWER_TIME_REMAINED) {
+    } else if (answer.timeRemained < time.slowAnswerTimeRemained) {
       slowAnswers++;
     }
   }
 
-  if (state.livesRemained < 0) {
+  if (lives < 0) {
     return -1;
   }
 
@@ -65,7 +60,7 @@ const getGameResult = (state, points) => {
       }
     },
     lives: {
-      total: state.livesRemained,
+      total: lives,
       points: points.livesBonus,
       getResult() {
         return this.total * this.points;

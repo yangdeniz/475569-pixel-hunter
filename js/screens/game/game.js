@@ -1,65 +1,83 @@
 import GameView from './game-view';
-import WarningScreenView from './warning-screen-view';
-import getStats from '../stats/stats';
-import greeting from '../greeting/greeting';
+import GameModel from './game-model';
+import App from '../../application';
+import {initialState} from '../../data/data';
 import showScreen from '../../utils/show-screen';
-import getNextGameState from '../../utils/get-next-game-state';
-import getGameResult from '../../utils/get-game-result';
-import gamePoints from '../../data/game-points';
 
-const getNextGame = (state) => {
+class GameScreen {
+  constructor() {
+    this.model = new GameModel();
+    this.view = new GameView(this.model);
+    this.answers = [];
 
-  const game = new GameView(state);
+    this.view.pause = () => {
+      this.stopTimer();
+    };
 
-  const warningScreen = new WarningScreenView();
+    this.view.continueGame = () => {
+      this.tick();
+    };
 
-  game.next = () => {
-    clearInterval(timer);
-    const nextState = getNextGameState(game.state, game.userAnswer);
-    if (!nextState.question || nextState.livesRemained < 0) {
-      const gameResult = getGameResult(nextState, gamePoints);
-      showScreen(getStats(nextState, gameResult).element);
-    } else {
-      showScreen(getNextGame(nextState).element);
+    this.view.stopGame = () => {
+      this.stopTimer();
+      App.showGreeting();
+    };
+
+    this.view.nextGame = () => {
+      this.stopTimer();
+      this.saveAnswer(this.view.getAnswer());
+      this.getNextGame();
+    };
+  }
+
+  init(state = initialState) {
+    this.model.update(state);
+    showScreen(this.view.element);
+    this.view.updateView();
+    this.tick();
+  }
+
+  getNextGame() {
+    this.model.getNextState(this.answers[this.answers.length - 1]);
+    if (this.model.state.livesRemained < 0 || !this.model.state.question) {
+      this.gameOver();
+      return;
     }
-  };
+    this.view.updateView();
+    this.tick();
+  }
 
-  game.showWarningScreen = () => {
-    clearInterval(timer);
-    game.element.appendChild(warningScreen.element);
-  };
+  timeOver() {
+    this.stopTimer();
+    this.saveAnswer();
+    this.getNextGame();
+  }
 
-  warningScreen.returnBack = () => {
-    showScreen(greeting().element);
-  };
+  gameOver() {
+    App.showStats(this.model.state);
+  }
 
-  warningScreen.continueGame = () => {
-    game.element.removeChild(warningScreen.element);
-    timer = setInterval(() => {
-      if (!game.timer.time) {
-        game.userAnswer = {
-          isCorrectAnswer: false,
-          timeRemained: 0
-        };
-        game.next();
+  tick() {
+    this.timer = setInterval(() => {
+      if (this.model.state.time === 0) {
+        this.timeOver();
+        return;
       }
-      game.updateTime();
+      this.model.tick();
+      this.view.updateTimer();
     }, 1000);
-  };
+  }
 
-  let timer = setInterval(() => {
-    if (!game.timer.time) {
-      game.userAnswer = {
-        isCorrectAnswer: false,
-        timeRemained: 0
-      };
-      game.next();
-    }
-    game.updateTime();
-  }, 1000);
+  stopTimer() {
+    clearInterval(this.timer);
+  }
 
-  return game;
+  saveAnswer(answer = {
+    isCorrectAnswer: false,
+    timeRemained: 0
+  }) {
+    this.answers.push(answer);
+  }
+}
 
-};
-
-export default getNextGame;
+export default new GameScreen();

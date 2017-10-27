@@ -1,17 +1,21 @@
 import RulesView from './rules-view';
-import getNextGame from '../game/game';
-import greeting from '../greeting/greeting';
+import App from '../../application';
 import showScreen from '../../utils/show-screen';
-import initialState from '../../data/initial-state';
 
-const rules = new RulesView();
+class RulesScreen {
+  constructor() {
+    this.view = new RulesView();
+  }
 
-rules.next = () => {
-  showScreen(getNextGame(initialState).element);
-};
+  init() {
+    showScreen(this.view.element);
+    this.view.next = () => {
+      App.startGame();
+    };
+    this.view.returnBack = () => {
+      App.showGreeting();
+    };
+  }
+}
 
-rules.returnBack = () => {
-  showScreen(greeting().element);
-};
-
-export default () => rules;
+export default new RulesScreen();
