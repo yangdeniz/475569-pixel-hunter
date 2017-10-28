@@ -1,6 +1,5 @@
-import showScreen from './utils/show-screen';
-import intro from './screens/intro/intro';
+import App from './application';
 
 window.onload = () => {
-  showScreen(intro().element);
+  App.showIntro();
 };

@@ -2,14 +2,14 @@ import AbstractView from '../../abstract-view';
 
 export default class StatsView extends AbstractView {
 
-  constructor(state, result) {
+  constructor(state) {
     super();
     this.state = state;
-    this.result = result;
   }
 
   get template() {
-    const gameIsWon = (this.result !== -1);
+    const result = this.state.gameResult;
+    const gameIsWon = (result !== -1);
     const gameStats = `<ul class="stats">${this.state.answersStats.map((answer) =>
       `<li class="stats__result stats__result--${answer}"></li>`)}
       </ul>`;
@@ -20,32 +20,32 @@ export default class StatsView extends AbstractView {
         <tr>
           <td class="result__number">1.</td>
           <td colspan="2">${gameStats}</td>
-          <td class="result__points">×&nbsp;${this.result.correct.points}</td>
-          <td class="result__total">${this.result.correct.getResult()}</td>
+          <td class="result__points">×&nbsp;${result.correct.points}</td>
+          <td class="result__total">${result.correct.getResult()}</td>
         </tr>
         <tr>
           <td></td>
           <td class="result__extra">Бонус за скорость:</td>
-          <td class="result__extra">${this.result.quick.answers}&nbsp;<span class="stats__result stats__result--fast"></span></td>
-          <td class="result__points">×&nbsp;${this.result.quick.points}</td>
-          <td class="result__total">${this.result.quick.getResult()}</td>
+          <td class="result__extra">${result.quick.answers}&nbsp;<span class="stats__result stats__result--fast"></span></td>
+          <td class="result__points">×&nbsp;${result.quick.points}</td>
+          <td class="result__total">${result.quick.getResult()}</td>
         </tr>
         <tr>
           <td></td>
           <td class="result__extra">Бонус за жизни:</td>
-          <td class="result__extra">${this.result.lives.total}&nbsp;<span class="stats__result stats__result--alive"></span></td>
-          <td class="result__points">×&nbsp;${this.result.lives.points}</td>
-          <td class="result__total">${this.result.lives.getResult()}</td>
+          <td class="result__extra">${result.lives.total}&nbsp;<span class="stats__result stats__result--alive"></span></td>
+          <td class="result__points">×&nbsp;${result.lives.points}</td>
+          <td class="result__total">${result.lives.getResult()}</td>
         </tr>
         <tr>
           <td></td>
           <td class="result__extra">Штраф за медлительность:</td>
-          <td class="result__extra">${this.result.slow.answers}&nbsp;<span class="stats__result stats__result--slow"></span></td>
-          <td class="result__points">×&nbsp;${this.result.slow.points}</td>
-          <td class="result__total">${this.result.slow.getResult()}</td>
+          <td class="result__extra">${result.slow.answers}&nbsp;<span class="stats__result stats__result--slow"></span></td>
+          <td class="result__points">×&nbsp;${result.slow.points}</td>
+          <td class="result__total">${result.slow.getResult()}</td>
         </tr>
         <tr>
-          <td colspan="5" class="result__total  result__total--final">${this.result.getTotal()}</td>
+          <td colspan="5" class="result__total  result__total--final">${result.getTotal()}</td>
         </tr>
         </table>`;
     } else {

@@ -1,13 +1,18 @@
 import StatsView from './stats-view';
-import greeting from '../greeting/greeting';
+import App from '../../application';
 import showScreen from '../../utils/show-screen';
 
-const getStats = (state, result) => {
-  const stats = new StatsView(state, result);
-  stats.returnBack = () => {
-    showScreen(greeting().element);
-  };
-  return stats;
-};
+class StatsScreen {
+  constructor(state) {
+    this.view = new StatsView(state);
+  }
 
-export default getStats;
+  init() {
+    showScreen(this.view.element);
+    this.view.returnBack = () => {
+      App.showGreeting();
+    };
+  }
+}
+
+export default StatsScreen;

@@ -1,6 +1,6 @@
-import AbstractView from '../../abstract-view';
+import AbstractView from '../../../abstract-view';
 
-export default class WarningScreenView extends AbstractView {
+export default class WarningView extends AbstractView {
 
   get template() {
     return `<div class="overlay" style="position: fixed; width: 100%; height: 100%; 
