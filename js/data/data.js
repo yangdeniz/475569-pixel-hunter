@@ -1,14 +1,14 @@
-const points = Object.freeze({
-  correctAnswerPoints: 100,
-  quickAnswerBonus: 50,
-  slowAnswerPenalty: 50,
-  livesBonus: 50
+const Points = Object.freeze({
+  CORRECT_ANSWER_POINTS: 100,
+  QUICK_ANSWER_BONUS: 50,
+  SLOW_ANSWER_PENALTY: 50,
+  LIVES_BONUS: 50
 });
 
-const time = Object.freeze({
-  timeTotal: 30,
-  quickAnswerTimeRemained: 20,
-  slowAnswerTimeRemained: 10
+const Time = Object.freeze({
+  TIME_TOTAL: 30,
+  QUICK_ANSWER_TIME_REMAINED: 20,
+  SLOW_ANSWER_TIME_REMAINED: 10
 });
 
 const questions = [
@@ -247,11 +247,11 @@ const questions = [
 const initialState = Object.freeze({
   gameNumber: 0,
   question: questions[0],
-  time: time.timeTotal,
+  time: Time.TIME_TOTAL,
   livesRemained: 3,
   userAnswers: [],
   answersStats: new Array(10).fill(`unknown`),
   gameResult: -1
 });
 
-export {points, time, questions, initialState};
+export {Points, Time, questions, initialState};

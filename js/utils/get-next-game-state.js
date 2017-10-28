@@ -1,14 +1,14 @@
-import {questions, points, time} from '../data/data';
+import {questions, Points, Time} from '../data/data';
 import getGameResult from './get-game-result';
 
 const getAnswerStats = (answer) => {
   if (!answer.isCorrectAnswer) {
     return `wrong`;
   }
-  if (answer.timeRemained > time.quickAnswerTimeRemained) {
+  if (answer.timeRemained > Time.QUICK_ANSWER_TIME_REMAINED) {
     return `fast`;
   }
-  if (answer.timeRemained < time.slowAnswerTimeRemained) {
+  if (answer.timeRemained < Time.SLOW_ANSWER_TIME_REMAINED) {
     return `slow`;
   }
   return `correct`;
@@ -30,11 +30,11 @@ const getNextGameState = (prevState, answer) => {
   const nextGameState = Object.freeze({
     gameNumber: prevState.gameNumber + 1,
     question: questions[prevState.gameNumber + 1] || false,
-    time: time.timeTotal,
+    time: Time.TIME_TOTAL,
     livesRemained: lives,
     userAnswers: answers,
     answersStats: stats,
-    gameResult: getGameResult(answers, lives, points)
+    gameResult: getGameResult(answers, lives, Points)
   });
 
   return nextGameState;

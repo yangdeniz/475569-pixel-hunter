@@ -5,8 +5,8 @@ import {initialState} from '../../data/data';
 import showScreen from '../../utils/show-screen';
 
 class GameScreen {
-  constructor() {
-    this.model = new GameModel(initialState);
+  constructor(state = initialState) {
+    this.model = new GameModel(state);
     this.view = new GameView(this.model);
     this.answers = [];
 
