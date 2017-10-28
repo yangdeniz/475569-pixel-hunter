@@ -3,6 +3,10 @@ import getNextGameState from '../../utils/get-next-game-state';
 
 export default class GameModel {
 
+  constructor(state) {
+    this.state = state;
+  }
+
   update(newState) {
     this.state = newState;
   }

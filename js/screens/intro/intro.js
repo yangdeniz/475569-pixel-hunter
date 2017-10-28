@@ -15,4 +15,4 @@ class IntroScreen {
   }
 }
 
-export default new IntroScreen();
+export default IntroScreen;

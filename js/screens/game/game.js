@@ -6,7 +6,7 @@ import showScreen from '../../utils/show-screen';
 
 class GameScreen {
   constructor() {
-    this.model = new GameModel();
+    this.model = new GameModel(initialState);
     this.view = new GameView(this.model);
     this.answers = [];
 
@@ -80,4 +80,4 @@ class GameScreen {
   }
 }
 
-export default new GameScreen();
+export default GameScreen;
