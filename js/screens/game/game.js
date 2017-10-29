@@ -19,38 +19,40 @@ class GameScreen {
     };
 
     this.view.stopGame = () => {
-      this.stopTimer();
       App.showGreeting();
     };
 
     this.view.nextGame = () => {
       this.stopTimer();
       this.saveAnswer(this.view.getAnswer());
-      this.getNextGame();
+      this.createNextGame();
     };
   }
 
   init(state = initialState) {
     this.model.update(state);
     showScreen(this.view.element);
+    this.startGame();
+  }
+
+  startGame() {
     this.view.updateView();
     this.tick();
   }
 
-  getNextGame() {
+  createNextGame() {
     this.model.getNextState(this.answers[this.answers.length - 1]);
     if (this.model.state.livesRemained < 0 || !this.model.state.question) {
       this.gameOver();
       return;
     }
-    this.view.updateView();
-    this.tick();
+    this.startGame();
   }
 
   timeOver() {
     this.stopTimer();
     this.saveAnswer();
-    this.getNextGame();
+    this.createNextGame();
   }
 
   gameOver() {

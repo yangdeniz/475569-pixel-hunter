@@ -1,5 +1,6 @@
 import IntroScreen from './screens/intro/intro';
 import GreetingScreen from './screens/greeting/greeting';
+import GreetingFadeScreen from './screens/greeting/greeting-fade';
 import RulesScreen from './screens/rules/rules';
 import GameScreen from './screens/game/game';
 import StatsScreen from './screens/stats/stats';
@@ -8,6 +9,7 @@ import {initialState} from './data/data';
 const ControllerId = {
   INTRO: ``,
   GREETING: `greet`,
+  GREETING_FADE: `greet1`,
   RULES: `rules`,
   GAME: `game`,
   STATS: `stats`
@@ -31,6 +33,7 @@ export default class App {
     App.routes = {
       [ControllerId.INTRO]: new IntroScreen(),
       [ControllerId.GREETING]: new GreetingScreen(),
+      [ControllerId.GREETING_FADE]: new GreetingFadeScreen(),
       [ControllerId.RULES]: new RulesScreen(),
       [ControllerId.GAME]: new GameScreen(),
       [ControllerId.STATS]: new StatsScreen(state),
@@ -58,6 +61,10 @@ export default class App {
 
   static showGreeting() {
     location.hash = ControllerId.GREETING;
+  }
+
+  static showGreetingFade() {
+    location.hash = ControllerId.GREETING_FADE;
   }
 
   static showRules() {

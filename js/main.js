@@ -1,5 +1,5 @@
 import App from './application';
 
-window.onload = () => {
+document.addEventListener(`DOMContentLoaded`, () => {
   App.showIntro();
-};
+});
