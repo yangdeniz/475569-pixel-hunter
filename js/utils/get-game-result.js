@@ -37,34 +37,38 @@ const getGameResult = (answers, lives, points) => {
     return -1;
   }
 
-  const pointsCorrect = correctAnswers * points.CORRECT_ANSWER_POINTS;
-  const pointsQuick = quickAnswers * points.QUICK_ANSWER_BONUS;
-  const pointsSlow = slowAnswers * -points.SLOW_ANSWER_PENALTY;
-  const pointsLives = lives * points.LIVES_BONUS;
-  const pointsTotal = pointsCorrect + pointsQuick + pointsSlow + pointsLives;
-
   const gameResult = {
     correct: {
       answers: correctAnswers,
       points: points.CORRECT_ANSWER_POINTS,
-      result: pointsCorrect
+      getResult() {
+        return this.answers * this.points;
+      }
     },
     quick: {
       answers: quickAnswers,
       points: points.QUICK_ANSWER_BONUS,
-      result: pointsQuick
+      getResult() {
+        return this.answers * this.points;
+      }
     },
     slow: {
       answers: slowAnswers,
       points: points.SLOW_ANSWER_PENALTY,
-      result: pointsSlow
+      getResult() {
+        return this.answers * -this.points;
+      }
     },
     lives: {
       total: lives,
       points: points.LIVES_BONUS,
-      result: pointsLives
+      getResult() {
+        return this.total * this.points;
+      }
     },
-    total: pointsTotal
+    getTotal() {
+      return this.correct.getResult() + this.quick.getResult() + this.slow.getResult() + this.lives.getResult();
+    }
   };
 
   return gameResult;

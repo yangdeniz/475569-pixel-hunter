@@ -102,27 +102,27 @@ describe(`Points counting function`, () => {
   });
 
   it(`Функция должна вернуть 1150, если все ответы верны и на каждый ответ затрачено от 10 до 20 сек.`, () => {
-    assert.equal(getGameResult(answersNormal, 3, Points).total, 1150);
+    assert.equal(getGameResult(answersNormal, 3, Points).getTotal(), 1150);
   });
 
   it(`Функция должна вернуть 1650, если все ответы верны и на каждый ответ затрачено меньше 10 сек.`, () => {
-    assert.equal(getGameResult(answersQuick, 3, Points).total, 1650);
+    assert.equal(getGameResult(answersQuick, 3, Points).getTotal(), 1650);
   });
 
   it(`Функция должна вернуть 650, если все ответы верны и на каждый ответ затрачено больше 20 сек.`, () => {
-    assert.equal(getGameResult(answersSlow, 3, Points).total, 650);
+    assert.equal(getGameResult(answersSlow, 3, Points).getTotal(), 650);
   });
 
   it(`Функция должна вернуть 1000, если допущена одна ошибка и на каждый ответ затрачено от 10 до 20 сек.`, () => {
-    assert.equal(getGameResult(oneMistakeAnswers, 2, Points).total, 1000);
+    assert.equal(getGameResult(oneMistakeAnswers, 2, Points).getTotal(), 1000);
   });
 
   it(`Функция должна вернуть 850, если допущено две ошибки и на каждый ответ затрачено от 10 до 20 сек.`, () => {
-    assert.equal(getGameResult(twoMistakesAnswers, 1, Points).total, 850);
+    assert.equal(getGameResult(twoMistakesAnswers, 1, Points).getTotal(), 850);
   });
 
   it(`Функция должна вернуть 700, если допущено три ошибки и на каждый ответ затрачено от 10 до 20 сек.`, () => {
-    assert.equal(getGameResult(threeMistakesAnswers, 0, Points).total, 700);
+    assert.equal(getGameResult(threeMistakesAnswers, 0, Points).getTotal(), 700);
   });
 
   it(`Функция выкидывает ошибку, если не переданы ответы пользователя или передано некорректное значение`, () => {

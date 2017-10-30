@@ -32,10 +32,6 @@ class GameScreen {
   init(state = initialState) {
     this.model.update(state);
     showScreen(this.view.element);
-    this.startGame();
-  }
-
-  startGame() {
     this.view.updateView();
     this.tick();
   }
@@ -46,7 +42,7 @@ class GameScreen {
       this.gameOver();
       return;
     }
-    this.startGame();
+    App.startGame(this.model.state);
   }
 
   timeOver() {

@@ -5,6 +5,7 @@ import RulesScreen from './screens/rules/rules';
 import GameScreen from './screens/game/game';
 import StatsScreen from './screens/stats/stats';
 import {initialState} from './data/data';
+import {encode, decode} from './utils/encode-state';
 
 const ControllerId = {
   INTRO: ``,
@@ -16,15 +17,17 @@ const ControllerId = {
 };
 
 const saveState = (state) => {
-  return JSON.stringify(state);
+  if (!state) {
+    return ``;
+  }
+  return encode(state);
 };
 
 const loadState = (dataString) => {
-  try {
-    return JSON.parse(dataString);
-  } catch (e) {
+  if (!dataString) {
     return initialState;
   }
+  return decode(dataString);
 };
 
 export default class App {
@@ -35,8 +38,8 @@ export default class App {
       [ControllerId.GREETING]: new GreetingScreen(),
       [ControllerId.GREETING_FADE]: new GreetingFadeScreen(),
       [ControllerId.RULES]: new RulesScreen(),
-      [ControllerId.GAME]: new GameScreen(),
-      [ControllerId.STATS]: new StatsScreen(state),
+      [ControllerId.GAME]: new GameScreen(state),
+      [ControllerId.STATS]: new StatsScreen(state)
     };
 
     const hashChangeHandler = () => {

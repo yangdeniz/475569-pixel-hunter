@@ -21,31 +21,31 @@ export default class StatsView extends AbstractView {
           <td class="result__number">1.</td>
           <td colspan="2">${gameStats}</td>
           <td class="result__points">×&nbsp;${score.correct.points}</td>
-          <td class="result__total">${score.correct.result}</td>
+          <td class="result__total">${score.correct.getResult()}</td>
         </tr>
         <tr>
           <td></td>
           <td class="result__extra">Бонус за скорость:</td>
           <td class="result__extra">${score.quick.answers}&nbsp;<span class="stats__result stats__result--fast"></span></td>
           <td class="result__points">×&nbsp;${score.quick.points}</td>
-          <td class="result__total">${score.quick.result}</td>
+          <td class="result__total">${score.quick.getResult()}</td>
         </tr>
         <tr>
           <td></td>
           <td class="result__extra">Бонус за жизни:</td>
           <td class="result__extra">${score.lives.total}&nbsp;<span class="stats__result stats__result--alive"></span></td>
           <td class="result__points">×&nbsp;${score.lives.points}</td>
-          <td class="result__total">${score.lives.result}</td>
+          <td class="result__total">${score.lives.getResult()}</td>
         </tr>
         <tr>
           <td></td>
           <td class="result__extra">Штраф за медлительность:</td>
           <td class="result__extra">${score.slow.answers}&nbsp;<span class="stats__result stats__result--slow"></span></td>
           <td class="result__points">×&nbsp;${score.slow.points}</td>
-          <td class="result__total">${score.slow.result}</td>
+          <td class="result__total">${score.slow.getResult()}</td>
         </tr>
         <tr>
-          <td colspan="5" class="result__total  result__total--final">${score.total}</td>
+          <td colspan="5" class="result__total  result__total--final">${score.getTotal()}</td>
         </tr>
         </table>`;
     } else {
@@ -69,10 +69,6 @@ export default class StatsView extends AbstractView {
     </header>
     <div class="result">${resultsTemplate}
     </div>`;
-  }
-
-  update(newState) {
-    this.state = newState;
   }
 
   bind() {
