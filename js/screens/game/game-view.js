@@ -53,7 +53,8 @@ export default class GameView extends AbstractView {
   }
 
   updateLevel() {
-    const newLevel = new LevelView(this.model.state);
+    const question = this.model.data[this.model.state.gameNumber];
+    const newLevel = new LevelView(this.model.state, question);
     update(this.levelContainer, newLevel);
     this.level = newLevel;
     this.level.next = () => {
@@ -68,7 +69,7 @@ export default class GameView extends AbstractView {
 
   getAnswer() {
     const answer = this.level.answer;
-    const question = this.model.state.question;
+    const question = this.model.data[this.model.state.gameNumber];
     const userAnswer = {
       isCorrectAnswer: answerIsCorrect(answer, question),
       timeRemained: this.model.state.time

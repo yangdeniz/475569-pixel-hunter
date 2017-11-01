@@ -5,10 +5,18 @@ import {initialState} from '../../data/data';
 import showScreen from '../../utils/show-screen';
 
 class GameScreen {
-  constructor(state = initialState) {
-    this.model = new GameModel(state);
+  constructor(data, state = initialState) {
+    this.model = new GameModel(data, state);
     this.view = new GameView(this.model);
     this.answers = [];
+
+    this.model.nextGame = () => {
+      App.startGame(this.model.state);
+    };
+
+    this.model.gameOver = () => {
+      App.showStats(this.model.state);
+    };
 
     this.view.pause = () => {
       this.stopTimer();
@@ -38,21 +46,12 @@ class GameScreen {
 
   createNextGame() {
     this.model.getNextState(this.answers[this.answers.length - 1]);
-    if (this.model.state.livesRemained < 0 || !this.model.state.question) {
-      this.gameOver();
-      return;
-    }
-    App.startGame(this.model.state);
   }
 
   timeOver() {
     this.stopTimer();
     this.saveAnswer();
     this.createNextGame();
-  }
-
-  gameOver() {
-    App.showStats(this.model.state);
   }
 
   tick() {

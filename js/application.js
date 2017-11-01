@@ -1,3 +1,4 @@
+import Loader from './loader';
 import IntroScreen from './screens/intro/intro';
 import GreetingScreen from './screens/greeting/greeting';
 import GreetingFadeScreen from './screens/greeting/greeting-fade';
@@ -5,56 +6,43 @@ import RulesScreen from './screens/rules/rules';
 import GameScreen from './screens/game/game';
 import StatsScreen from './screens/stats/stats';
 import {initialState} from './data/data';
-import {encode, decode} from './utils/encode-state';
+import adapt from './data/adapter';
 
 const ControllerId = {
   INTRO: ``,
   GREETING: `greet`,
-  GREETING_FADE: `greet1`,
+  GREETING_FADE: `_greet`,
   RULES: `rules`,
   GAME: `game`,
   STATS: `stats`
 };
 
-const saveState = (state) => {
-  if (!state) {
-    return ``;
-  }
-  return encode(state);
-};
-
-const loadState = (dataString) => {
-  if (!dataString) {
-    return initialState;
-  }
-  return decode(dataString);
-};
-
 export default class App {
 
-  static init(state) {
+  static init(data) {
     App.routes = {
       [ControllerId.INTRO]: new IntroScreen(),
       [ControllerId.GREETING]: new GreetingScreen(),
       [ControllerId.GREETING_FADE]: new GreetingFadeScreen(),
       [ControllerId.RULES]: new RulesScreen(),
-      [ControllerId.GAME]: new GameScreen(state),
-      [ControllerId.STATS]: new StatsScreen(state)
+      [ControllerId.GAME]: new GameScreen(data),
+      [ControllerId.STATS]: new StatsScreen()
     };
 
     const hashChangeHandler = () => {
       const hashValue = location.hash.replace(`#`, ``);
-      const [id, data] = hashValue.split(`?`);
-      this.changeHash(id, data);
+      this.changeHash(hashValue);
     };
     window.onhashchange = hashChangeHandler;
     hashChangeHandler();
+
+    App.routes[ControllerId.INTRO].view.loadImages(data);
   }
 
-  static changeHash(id, data) {
+  static changeHash(id) {
     const controller = App.routes[id];
     if (controller) {
-      controller.init(loadState(data));
+      controller.init();
     }
   }
 
@@ -75,13 +63,16 @@ export default class App {
   }
 
   static startGame(state = initialState) {
-    location.hash = `${ControllerId.GAME}?${saveState(state)}`;
+    App.routes[ControllerId.GAME].init(state);
   }
 
   static showStats(state) {
-    location.hash = `${ControllerId.STATS}?${saveState(state)}`;
+    App.routes[ControllerId.STATS].init(state);
   }
 
 }
 
-App.init();
+Loader.loadData().
+    then(adapt).
+    then((questData) => App.init(questData)).
+    catch(window.console.error);

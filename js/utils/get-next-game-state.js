@@ -1,4 +1,4 @@
-import {questions, Points, Time} from '../data/data';
+import {Points, Time} from '../data/data';
 import getGameResult from './get-game-result';
 
 const getAnswerStats = (answer) => {
@@ -29,8 +29,7 @@ const getNextGameState = (prevState, answer) => {
 
   const nextGameState = Object.freeze({
     gameNumber: prevState.gameNumber + 1,
-    question: questions[prevState.gameNumber + 1] || false,
-    time: Time.TIME_TOTAL,
+    time: Time.TOTAL,
     livesRemained: lives,
     userAnswers: answers,
     answersStats: stats,
