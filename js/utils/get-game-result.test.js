@@ -3,11 +3,11 @@ import getGameResult from './get-game-result';
 
 describe(`Points counting function`, () => {
 
-  const points = Object.freeze({
-    correctAnswerPoints: 100,
-    quickAnswerBonus: 50,
-    slowAnswerPenalty: 50,
-    livesBonus: 50
+  const Points = Object.freeze({
+    CORRECT_ANSWER_POINTS: 100,
+    QUICK_ANSWER_BONUS: 50,
+    SLOW_ANSWER_PENALTY: 50,
+    LIVES_BONUS: 50
   });
 
   const answersNotFull = [
@@ -98,42 +98,42 @@ describe(`Points counting function`, () => {
   ];
 
   it(`Функция должна вернуть -1, если игрок допустил четыре ошибки`, () => {
-    assert.equal(getGameResult(answersNotFull, -1, points), -1);
+    assert.equal(getGameResult(answersNotFull, -1, Points), -1);
   });
 
   it(`Функция должна вернуть 1150, если все ответы верны и на каждый ответ затрачено от 10 до 20 сек.`, () => {
-    assert.equal(getGameResult(answersNormal, 3, points).getTotal(), 1150);
+    assert.equal(getGameResult(answersNormal, 3, Points).getTotal(), 1150);
   });
 
   it(`Функция должна вернуть 1650, если все ответы верны и на каждый ответ затрачено меньше 10 сек.`, () => {
-    assert.equal(getGameResult(answersQuick, 3, points).getTotal(), 1650);
+    assert.equal(getGameResult(answersQuick, 3, Points).getTotal(), 1650);
   });
 
   it(`Функция должна вернуть 650, если все ответы верны и на каждый ответ затрачено больше 20 сек.`, () => {
-    assert.equal(getGameResult(answersSlow, 3, points).getTotal(), 650);
+    assert.equal(getGameResult(answersSlow, 3, Points).getTotal(), 650);
   });
 
   it(`Функция должна вернуть 1000, если допущена одна ошибка и на каждый ответ затрачено от 10 до 20 сек.`, () => {
-    assert.equal(getGameResult(oneMistakeAnswers, 2, points).getTotal(), 1000);
+    assert.equal(getGameResult(oneMistakeAnswers, 2, Points).getTotal(), 1000);
   });
 
   it(`Функция должна вернуть 850, если допущено две ошибки и на каждый ответ затрачено от 10 до 20 сек.`, () => {
-    assert.equal(getGameResult(twoMistakesAnswers, 1, points).getTotal(), 850);
+    assert.equal(getGameResult(twoMistakesAnswers, 1, Points).getTotal(), 850);
   });
 
   it(`Функция должна вернуть 700, если допущено три ошибки и на каждый ответ затрачено от 10 до 20 сек.`, () => {
-    assert.equal(getGameResult(threeMistakesAnswers, 0, points).getTotal(), 700);
+    assert.equal(getGameResult(threeMistakesAnswers, 0, Points).getTotal(), 700);
   });
 
   it(`Функция выкидывает ошибку, если не переданы ответы пользователя или передано некорректное значение`, () => {
     assert.throws(() => getGameResult(), Error);
-    assert.throws(() => getGameResult(null, 3, points), Error);
+    assert.throws(() => getGameResult(null, 3, Points), Error);
   });
 
   it(`Функция выкидывает ошибку, если не передано количество жизней или передано некорректное значение`, () => {
     assert.throws(() => getGameResult(answersNormal), Error);
-    assert.throws(() => getGameResult(answersNormal, null, points), Error);
-    assert.throws(() => getGameResult(answersNormal, `3`, points), Error);
+    assert.throws(() => getGameResult(answersNormal, null, Points), Error);
+    assert.throws(() => getGameResult(answersNormal, `3`, Points), Error);
   });
 
   it(`Функция выкидывает ошибку, если не переданы очки или передано некорректное значение`, () => {
@@ -154,7 +154,7 @@ describe(`Points counting function`, () => {
       {isCorrectAnswer: true, timeRemained: 15},
       {isCorrectAnswer: true, timeRemained: 17},
       {isCorrectAnswer: false, timeRemained: 13},
-    ], 0, points), Error);
+    ], 0, Points), Error);
     assert.throws(() => getGameResult([
       {isCorrectAnswer: true, timeRemained: 25},
       {isCorrectAnswer: true, timeRemained: 13},
@@ -166,7 +166,7 @@ describe(`Points counting function`, () => {
       {isCorrectAnswer: true, timeRemained: 15},
       {isCorrectAnswer: true, timeRemained: 17},
       {isCorrectAnswer: false, timeRemained: 13},
-    ], 0, points), Error);
+    ], 0, Points), Error);
     assert.throws(() => getGameResult([
       {isCorrectAnswer: true, timeRemained: 25},
       {isCorrectAnswer: true, timeRemained: 13},
@@ -178,7 +178,7 @@ describe(`Points counting function`, () => {
       {isCorrectAnswer: true, timeRemained: 15},
       {isCorrectAnswer: true, timeRemained: 17},
       {isCorrectAnswer: false, timeRemained: 13},
-    ], 0, points), Error);
+    ], 0, Points), Error);
     assert.throws(() => getGameResult([
       {isCorrectAnswer: true, timeRemained: 25},
       {isCorrectAnswer: true, timeRemained: 13},
@@ -190,7 +190,7 @@ describe(`Points counting function`, () => {
       {isCorrectAnswer: true, timeRemained: 15},
       {isCorrectAnswer: `true`, timeRemained: 17},
       {isCorrectAnswer: false, timeRemained: 13},
-    ], 0, points), Error);
+    ], 0, Points), Error);
   });
 
   it(`Функция выкидывает ошибку, если оставшееся время не является числом от 0 до 30`, () => {
@@ -205,7 +205,7 @@ describe(`Points counting function`, () => {
       {isCorrectAnswer: true, timeRemained: 15},
       {isCorrectAnswer: true, timeRemained: 17},
       {isCorrectAnswer: false, timeRemained: 13},
-    ], 0, points), Error);
+    ], 0, Points), Error);
     assert.throws(() => getGameResult([
       {isCorrectAnswer: true, timeRemained: 25},
       {isCorrectAnswer: true, timeRemained: 13},
@@ -217,7 +217,7 @@ describe(`Points counting function`, () => {
       {isCorrectAnswer: true, timeRemained: 15},
       {isCorrectAnswer: true, timeRemained: 17},
       {isCorrectAnswer: false, timeRemained: 13},
-    ], 0, points), Error);
+    ], 0, Points), Error);
     assert.throws(() => getGameResult([
       {isCorrectAnswer: true, timeRemained: 25},
       {isCorrectAnswer: true, timeRemained: 13},
@@ -229,7 +229,7 @@ describe(`Points counting function`, () => {
       {isCorrectAnswer: true, timeRemained: 15},
       {isCorrectAnswer: true, timeRemained: `17`},
       {isCorrectAnswer: false, timeRemained: 13},
-    ], 0, points), Error);
+    ], 0, Points), Error);
     assert.throws(() => getGameResult([
       {isCorrectAnswer: true, timeRemained: 25},
       {isCorrectAnswer: true, timeRemained: 13},
@@ -241,7 +241,7 @@ describe(`Points counting function`, () => {
       {isCorrectAnswer: true, timeRemained: 15},
       {isCorrectAnswer: true, timeRemained: 17},
       {isCorrectAnswer: false, timeRemained: 13},
-    ], 0, points), Error);
+    ], 0, Points), Error);
     assert.throws(() => getGameResult([
       {isCorrectAnswer: true, timeRemained: 25},
       {isCorrectAnswer: true, timeRemained: 13},
@@ -253,7 +253,7 @@ describe(`Points counting function`, () => {
       {isCorrectAnswer: true, timeRemained: 15},
       {isCorrectAnswer: true, timeRemained: 17},
       {isCorrectAnswer: false, timeRemained: 13},
-    ], 0, points), Error);
+    ], 0, Points), Error);
   });
 
 });

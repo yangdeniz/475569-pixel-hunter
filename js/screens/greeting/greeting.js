@@ -8,10 +8,14 @@ class GreetingScreen {
   }
 
   init() {
-    showScreen(this.view.element);
+    this.show();
     this.view.next = () => {
       App.showRules();
     };
+  }
+
+  show() {
+    showScreen(this.view.element);
   }
 }
 

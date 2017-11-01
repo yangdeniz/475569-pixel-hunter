@@ -3,6 +3,7 @@ import HeaderView from './header/header-view';
 import LevelView from './level/level-view';
 import WarningView from './warning/warning-view';
 import answerIsCorrect from '../../utils/check-user-answer';
+import {fadeIn, fadeOut} from '../../utils/fade';
 
 const update = (container, view) => {
   container.innerHTML = ``;
@@ -16,10 +17,11 @@ export default class GameView extends AbstractView {
     this.model = model;
     this.warning = new WarningView();
     this.warning.continueGame = () => {
-      this.element.removeChild(this.warning.element);
+      fadeOut(this.warning.element, 50);
       this.continueGame();
     };
     this.warning.returnBack = () => {
+      document.querySelector(`main`).removeChild(this.warning.element);
       this.stopGame();
     };
   }
@@ -40,8 +42,8 @@ export default class GameView extends AbstractView {
     update(this.headerContainer, newHeader);
     this.header = newHeader;
     this.header.showWarningScreen = () => {
-      this.element.appendChild(this.warning.element);
       this.pause();
+      fadeIn(this.warning.element, 50);
     };
   }
 

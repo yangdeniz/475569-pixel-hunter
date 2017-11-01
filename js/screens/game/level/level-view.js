@@ -54,11 +54,13 @@ export default class LevelView extends AbstractView {
     const content = this.element.querySelector(`.game__content`);
     const isManyOptionsQuestion = !!this.element.querySelector(`input[type="radio"]`);
 
-    const gameOptions = new Set();
-    let optionNumber = 1;
-    while (this.element.querySelector(`input[name="question${optionNumber}"]`)) {
-      gameOptions.add(this.element.querySelectorAll(`input[name="question${optionNumber}"]`));
-      optionNumber++;
+    const gameOptions = this.element.querySelectorAll(`.game__option`);
+
+    const gameAnswers = new Set();
+    let answerNumber = 1;
+    while (this.element.querySelector(`input[name="question${answerNumber}"]`)) {
+      gameAnswers.add(this.element.querySelectorAll(`input[name="question${answerNumber}"]`));
+      answerNumber++;
     }
 
     const images = this.element.querySelectorAll(`.game__option img`);
@@ -95,18 +97,17 @@ export default class LevelView extends AbstractView {
           return;
         }
         answer = [];
-        for (const option of gameOptions) {
-          if (!getSelectedAnswer(option)) {
+        for (const item of gameAnswers) {
+          if (!getSelectedAnswer(item)) {
             return;
           }
-          answer.push(getSelectedAnswer(option));
+          answer.push(getSelectedAnswer(item));
         }
       } else {
         if (!target.classList.contains(`game__option`)) {
           return;
         }
-        const options = this.element.querySelectorAll(`.game__option`);
-        answer = [...options].indexOf(target);
+        answer = [...gameOptions].indexOf(target);
       }
 
       this.answer = answer;

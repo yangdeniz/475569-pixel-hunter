@@ -1,4 +1,4 @@
-import {time} from '../data/data';
+import {Time} from '../data/data';
 
 const getGameResult = (answers, lives, points) => {
   if (!(answers instanceof Array)) {
@@ -19,16 +19,16 @@ const getGameResult = (answers, lives, points) => {
     if (typeof answer.isCorrectAnswer !== `boolean`) {
       throw new Error(`Ошибка: ответ пользователя должен быть логическим значением`);
     }
-    if (typeof answer.timeRemained !== `number` || answer.timeRemained < 0 || answer.timeRemained > time.timeTotal) {
+    if (typeof answer.timeRemained !== `number` || answer.timeRemained < 0 || answer.timeRemained > Time.TIME_TOTAL) {
       throw new Error(`Ошибка: оставшееся время должно быть числом от 0 до 30`);
     }
     if (!answer.isCorrectAnswer) {
       continue;
     }
     correctAnswers++;
-    if (answer.timeRemained > time.quickAnswerTimeRemained) {
+    if (answer.timeRemained > Time.QUICK_ANSWER_TIME_REMAINED) {
       quickAnswers++;
-    } else if (answer.timeRemained < time.slowAnswerTimeRemained) {
+    } else if (answer.timeRemained < Time.SLOW_ANSWER_TIME_REMAINED) {
       slowAnswers++;
     }
   }
@@ -40,28 +40,28 @@ const getGameResult = (answers, lives, points) => {
   const gameResult = {
     correct: {
       answers: correctAnswers,
-      points: points.correctAnswerPoints,
+      points: points.CORRECT_ANSWER_POINTS,
       getResult() {
         return this.answers * this.points;
       }
     },
     quick: {
       answers: quickAnswers,
-      points: points.quickAnswerBonus,
+      points: points.QUICK_ANSWER_BONUS,
       getResult() {
         return this.answers * this.points;
       }
     },
     slow: {
       answers: slowAnswers,
-      points: points.slowAnswerPenalty,
+      points: points.SLOW_ANSWER_PENALTY,
       getResult() {
         return this.answers * -this.points;
       }
     },
     lives: {
       total: lives,
-      points: points.livesBonus,
+      points: points.LIVES_BONUS,
       getResult() {
         return this.total * this.points;
       }

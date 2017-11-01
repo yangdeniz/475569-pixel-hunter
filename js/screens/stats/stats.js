@@ -7,7 +7,8 @@ class StatsScreen {
     this.view = new StatsView(state);
   }
 
-  init() {
+  init(state) {
+    this.view = new StatsView(state);
     showScreen(this.view.element);
     this.view.returnBack = () => {
       App.showGreeting();

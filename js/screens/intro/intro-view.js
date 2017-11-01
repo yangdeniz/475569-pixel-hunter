@@ -1,4 +1,13 @@
 import AbstractView from '../../abstract-view';
+import {questions} from '../../data/data';
+
+const images = new Set();
+for (const question of questions) {
+  const items = [...question.content];
+  for (const item of items) {
+    images.add(item.image.src);
+  }
+}
 
 export default class IntroView extends AbstractView {
 
@@ -12,10 +21,19 @@ export default class IntroView extends AbstractView {
   }
 
   bind() {
-    const button = this.element.querySelector(`.intro__asterisk`);
-    button.onclick = () => {
-      this.next();
+    let counter = 0;
+    const onLoad = () => {
+      counter++;
+      if (counter === images.size) {
+        this.next();
+      }
     };
+
+    for (const image of [...images]) {
+      const img = document.createElement(`img`);
+      img.onload = img.onerror = onLoad;
+      img.src = image;
+    }
   }
 
   next() {}

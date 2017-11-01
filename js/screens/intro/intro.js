@@ -1,6 +1,7 @@
 import IntroView from './intro-view';
 import App from '../../application';
 import showScreen from '../../utils/show-screen';
+import {fadeOut} from '../../utils/fade';
 
 class IntroScreen {
   constructor() {
@@ -10,7 +11,8 @@ class IntroScreen {
   init() {
     showScreen(this.view.element);
     this.view.next = () => {
-      App.showGreeting();
+      App.showGreetingFade();
+      fadeOut(this.view.element, 500);
     };
   }
 }
