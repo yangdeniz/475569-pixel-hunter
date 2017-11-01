@@ -44,7 +44,8 @@ export default class RulesView extends AbstractView {
       }
     };
 
-    button.onclick = () => {
+    button.onclick = (e) => {
+      e.preventDefault();
       this.next();
     };
 

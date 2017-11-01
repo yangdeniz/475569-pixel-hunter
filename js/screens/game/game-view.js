@@ -17,7 +17,7 @@ export default class GameView extends AbstractView {
     this.model = model;
     this.warning = new WarningView();
     this.warning.continueGame = () => {
-      fadeOut(this.warning.element, 100);
+      fadeOut(this.warning.element, 50);
       this.continueGame();
     };
     this.warning.returnBack = () => {
@@ -43,7 +43,7 @@ export default class GameView extends AbstractView {
     this.header = newHeader;
     this.header.showWarningScreen = () => {
       this.pause();
-      fadeIn(this.warning.element, 100);
+      fadeIn(this.warning.element, 50);
     };
   }
 

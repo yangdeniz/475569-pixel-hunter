@@ -12,7 +12,7 @@ class IntroScreen {
     showScreen(this.view.element);
     this.view.next = () => {
       App.showGreetingFade();
-      fadeOut(this.view.element, 1000);
+      fadeOut(this.view.element, 500);
     };
   }
 }
