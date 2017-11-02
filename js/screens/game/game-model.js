@@ -3,7 +3,8 @@ import getNextGameState from '../../utils/get-next-game-state';
 
 export default class GameModel {
 
-  constructor(state) {
+  constructor(data, state) {
+    this.data = data;
     this.state = state;
   }
 
@@ -12,11 +13,21 @@ export default class GameModel {
   }
 
   getNextState(answer) {
-    this.update(getNextGameState(this.state, answer));
+    const nextState = getNextGameState(this.state, answer);
+    this.update(nextState);
+    if (nextState.livesRemained < 0 || nextState.gameNumber >= this.data.length) {
+      this.gameOver();
+      return;
+    }
+    this.nextGame();
   }
 
   tick() {
     this.update(tick(this.state));
   }
+
+  nextGame() {}
+
+  gameOver() {}
 
 }

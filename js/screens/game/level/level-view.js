@@ -2,9 +2,10 @@ import AbstractView from '../../../abstract-view';
 import resize from '../../../utils/resize';
 
 export default class LevelView extends AbstractView {
-  constructor(state) {
+  constructor(state, question) {
     super();
     this.state = state;
+    this.question = question;
   }
 
   get template() {
@@ -33,11 +34,11 @@ export default class LevelView extends AbstractView {
     };
 
     return `<div class="game">
-    <p class="game__task">${this.state.question.task}</p>
-    <form class="game__content${addClassToQuestionForm(this.state.question.content)}">
-    ${[...(this.state.question.content)].map((option) => {
+    <p class="game__task">${this.question.task}</p>
+    <form class="game__content${addClassToQuestionForm(this.question.content)}">
+    ${[...(this.question.content)].map((option) => {
     return `<div class="game__option">
-      <img src="${option.image.src}" alt="Option ${option.number}" width="${option.image.width}" height="${option.image.height}">
+      <img src="${option.image.url}" alt="Option ${option.number}" width="${option.image.width}" height="${option.image.height}">
       ${getAnswersTemplate(option)}
     </div>`;
   }).join(``)}

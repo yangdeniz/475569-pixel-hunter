@@ -19,7 +19,7 @@ const getGameResult = (answers, lives, points) => {
     if (typeof answer.isCorrectAnswer !== `boolean`) {
       throw new Error(`Ошибка: ответ пользователя должен быть логическим значением`);
     }
-    if (typeof answer.timeRemained !== `number` || answer.timeRemained < 0 || answer.timeRemained > Time.TIME_TOTAL) {
+    if (typeof answer.timeRemained !== `number` || answer.timeRemained < 0 || answer.timeRemained > Time.TOTAL) {
       throw new Error(`Ошибка: оставшееся время должно быть числом от 0 до 30`);
     }
     if (!answer.isCorrectAnswer) {
