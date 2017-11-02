@@ -52,17 +52,6 @@ export default class LevelView extends AbstractView {
   }
 
   bind() {
-    const content = this.element.querySelector(`.game__content`);
-    const isManyOptionsQuestion = !!this.element.querySelector(`input[type="radio"]`);
-
-    const gameOptions = this.element.querySelectorAll(`.game__option`);
-
-    const gameAnswers = new Set();
-    let answerNumber = 1;
-    while (this.element.querySelector(`input[name="question${answerNumber}"]`)) {
-      gameAnswers.add(this.element.querySelectorAll(`input[name="question${answerNumber}"]`));
-      answerNumber++;
-    }
 
     const images = this.element.querySelectorAll(`.game__option img`);
     for (const image of images) {
@@ -81,40 +70,54 @@ export default class LevelView extends AbstractView {
       };
     }
 
-    const getSelectedAnswer = (answers) => {
-      for (const answer of answers) {
-        if (answer.checked) {
-          return answer.value;
+    const isManyOptionsQuestion = !!this.element.querySelector(`input[type="radio"]`);
+    let gameOptions = [];
+    if (isManyOptionsQuestion) {
+      let answerNumber = 1;
+      while (this.element.querySelector(`input[name="question${answerNumber}"]`)) {
+        gameOptions.push([...(this.element.querySelectorAll(`input[name="question${answerNumber}"]`))]);
+        answerNumber++;
+      }
+    } else {
+      gameOptions = [...(this.element.querySelectorAll(`.game__option`))];
+    }
+
+    const getSelectedAnswer = (options) => {
+      for (const option of options) {
+        if (option.checked) {
+          return option.value;
         }
       }
       return false;
     };
 
-    content.onclick = (e) => {
-      const target = e.target;
+    const onClick = (event) => {
       let answer;
-      if (isManyOptionsQuestion) {
-        if (target.type !== `radio`) {
-          return;
-        }
+      if (!isManyOptionsQuestion) {
+        answer = gameOptions.indexOf(event.target);
+      } else {
         answer = [];
-        for (const item of gameAnswers) {
-          if (!getSelectedAnswer(item)) {
+        for (const option of gameOptions) {
+          if (!getSelectedAnswer(option)) {
             return;
           }
-          answer.push(getSelectedAnswer(item));
+          answer.push(getSelectedAnswer(option));
         }
-      } else {
-        if (!target.classList.contains(`game__option`)) {
-          return;
-        }
-        answer = [...gameOptions].indexOf(target);
       }
-
       this.answer = answer;
-
       this.next();
     };
+
+    for (const option of gameOptions) {
+      if (!isManyOptionsQuestion) {
+        option.onclick = onClick;
+      } else {
+        for (const item of option) {
+          item.onclick = onClick;
+        }
+      }
+    }
+
   }
 
   next() {}

@@ -10,25 +10,12 @@ class GameScreen {
     this.view = new GameView(this.model);
     this.answers = [];
 
-    this.model.nextGame = () => {
-      App.startGame(this.model.state);
-    };
+    this.model.nextGame = () => App.startGame(this.model.state);
+    this.model.gameOver = () => App.showStats(this.model.state);
 
-    this.model.gameOver = () => {
-      App.showStats(this.model.state);
-    };
-
-    this.view.pause = () => {
-      this.stopTimer();
-    };
-
-    this.view.continueGame = () => {
-      this.tick();
-    };
-
-    this.view.stopGame = () => {
-      App.showGreeting();
-    };
+    this.view.pause = () => this.stopTimer();
+    this.view.continueGame = () => this.tick();
+    this.view.stopGame = () => App.showGreeting();
 
     this.view.nextGame = () => {
       this.stopTimer();

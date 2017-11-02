@@ -67,7 +67,9 @@ export default class App {
   }
 
   static showStats(state) {
-    App.routes[ControllerId.STATS].init(state);
+    Loader.saveResults(state).then(() => {
+      App.routes[ControllerId.STATS].init(state);
+    });
   }
 
 }
