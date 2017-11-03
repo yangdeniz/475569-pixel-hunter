@@ -1,5 +1,5 @@
 import assert from 'assert';
-import adapt from './adapter';
+import adapt from './data-adapter';
 
 const input = [
   {

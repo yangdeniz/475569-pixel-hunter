@@ -51,8 +51,9 @@ export default class LevelView extends AbstractView {
     </div>`;
   }
 
-  bind() {
+  next() {}
 
+  bind() {
     const images = this.element.querySelectorAll(`.game__option img`);
     for (const image of images) {
       image.onload = () => {
@@ -91,34 +92,32 @@ export default class LevelView extends AbstractView {
       return false;
     };
 
-    const onClick = (event) => {
-      let answer;
-      if (!isManyOptionsQuestion) {
-        answer = gameOptions.indexOf(event.target);
-      } else {
-        answer = [];
-        for (const option of gameOptions) {
-          if (!getSelectedAnswer(option)) {
-            return;
-          }
-          answer.push(getSelectedAnswer(option));
-        }
-      }
+    const onDivClick = (event) => {
+      const answer = gameOptions.indexOf(event.target);
       this.answer = answer;
+      this.next();
+    };
+
+    const onInputClick = () => {
+      const answers = [];
+      for (const option of gameOptions) {
+        if (!getSelectedAnswer(option)) {
+          return;
+        }
+        answers.push(getSelectedAnswer(option));
+      }
+      this.answer = answers;
       this.next();
     };
 
     for (const option of gameOptions) {
       if (!isManyOptionsQuestion) {
-        option.onclick = onClick;
+        option.onclick = onDivClick;
       } else {
         for (const item of option) {
-          item.onclick = onClick;
+          item.onclick = onInputClick;
         }
       }
     }
-
   }
-
-  next() {}
 }

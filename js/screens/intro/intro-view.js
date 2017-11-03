@@ -1,7 +1,6 @@
 import AbstractView from '../../abstract-view';
 
 export default class IntroView extends AbstractView {
-
   get template() {
     return `<div id="main" class="central__content">
     <div id="intro" class="intro">
@@ -21,7 +20,7 @@ export default class IntroView extends AbstractView {
     }
 
     let counter = 0;
-    const onLoad = () => {
+    const onImageLoad = () => {
       counter++;
       if (counter === images.size) {
         this.next();
@@ -30,11 +29,10 @@ export default class IntroView extends AbstractView {
 
     for (const image of [...images]) {
       const img = document.createElement(`img`);
-      img.onload = img.onerror = onLoad;
+      img.onload = img.onerror = onImageLoad;
       img.src = image;
     }
   }
 
   next() {}
-
 }

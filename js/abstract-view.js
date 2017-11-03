@@ -1,14 +1,7 @@
 import getElementFromTemplate from './utils/get-element-from-template';
 
 export default class AbstractView {
-
   get template() {}
-
-  render() {
-    return getElementFromTemplate(this.template);
-  }
-
-  bind() {}
 
   get element() {
     if (!this._element) {
@@ -18,4 +11,9 @@ export default class AbstractView {
     return this._element;
   }
 
+  render() {
+    return getElementFromTemplate(this.template);
+  }
+
+  bind() {}
 }

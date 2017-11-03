@@ -1,7 +1,6 @@
 import AbstractView from '../../abstract-view';
 
 export default class GreetingView extends AbstractView {
-
   get template() {
     return `<div class="greeting central--blur">
     <div class="greeting__logo"><img src="img/logo_big.png" width="201" height="89" alt="Pixel Hunter"></div>
@@ -18,6 +17,8 @@ export default class GreetingView extends AbstractView {
     </div>`;
   }
 
+  next() {}
+
   bind() {
     const button = this.element.querySelector(`.greeting__continue`);
     button.onclick = () => {
@@ -28,7 +29,4 @@ export default class GreetingView extends AbstractView {
       this.next();
     };
   }
-
-  next() {}
-
 }

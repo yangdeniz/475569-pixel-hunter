@@ -7,6 +7,22 @@ export default class StatsView extends AbstractView {
     this.gameIsWon = gameIsWon;
   }
 
+  get template() {
+    const head = this.gameIsWon ? `Победа!` : `Вы проиграли :(`;
+    return `<header class="header">
+    <div class="header__back">
+      <button class="back">
+        <img src="img/arrow_left.svg" width="45" height="45" alt="Back">
+        <img src="img/logo_small.svg" width="101" height="44">
+      </button>
+    </div>
+    </header>
+    <div class="result">
+      <h1>${head}</h1>
+      <p class="loading-template">Подождите, идет загрузка данных...</p>
+    </div>`;
+  }
+
   printStats(stats) {
     const getStatsTemplate = (answersStats) => {
       return `<ul class="stats">${answersStats.map((answer) =>
@@ -16,7 +32,7 @@ export default class StatsView extends AbstractView {
 
     const getResultTemplate = (state, number) => {
       const result = state.gameResult;
-      const gameIsWon = result !== -1;
+      const gameIsWon = (result !== -1);
       let resultsTemplate;
       if (gameIsWon) {
         resultsTemplate = `<tr>
@@ -68,32 +84,12 @@ export default class StatsView extends AbstractView {
     const loadingElement = this.element.querySelector(`.loading-template`);
     const parentElement = this.element.querySelector(`.result`);
     parentElement.replaceChild(statsElement, loadingElement);
-
-  }
-
-  get template() {
-    const head = this.gameIsWon ? `Победа!` : `Вы проиграли :(`;
-    return `<header class="header">
-    <div class="header__back">
-      <button class="back">
-        <img src="img/arrow_left.svg" width="45" height="45" alt="Back">
-        <img src="img/logo_small.svg" width="101" height="44">
-      </button>
-    </div>
-    </header>
-    <div class="result">
-      <h1>${head}</h1>
-      <p class="loading-template">Подождите, идет загрузка данных...</p>
-    </div>`;
-  }
-
-  bind() {
-    const back = this.element.querySelector(`.back`);
-    back.onclick = () => {
-      this.returnBack();
-    };
   }
 
   returnBack() {}
 
+  bind() {
+    const back = this.element.querySelector(`.back`);
+    back.onclick = () => this.returnBack();
+  }
 }

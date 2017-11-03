@@ -4,7 +4,7 @@ import App from '../../application';
 import {initialState} from '../../data/data';
 import showScreen from '../../utils/show-screen';
 
-class GameScreen {
+export default class GameScreen {
   constructor(data, state = initialState) {
     this.model = new GameModel(data, state);
     this.view = new GameView(this.model);
@@ -57,11 +57,9 @@ class GameScreen {
   }
 
   saveAnswer(answer = {
-    isCorrectAnswer: false,
+    isCorrect: false,
     timeRemained: 0
   }) {
     this.answers.push(answer);
   }
 }
-
-export default GameScreen;

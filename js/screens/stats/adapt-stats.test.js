@@ -69,6 +69,11 @@ describe(`Stats adapter function`, () => {
   it(`Функция выкидывает ошибку, если переданы некорректные данные`, () => {
     assert.throws(() => adaptStats(), Error);
     assert.throws(() => adaptStats(null), Error);
+    assert.throws(() => adaptStats({
+      date: 1234567567898,
+      stats: null,
+      lives: 0
+    }), Error);
   });
 
 });

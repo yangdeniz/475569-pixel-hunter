@@ -11,7 +11,6 @@ const update = (container, view) => {
 };
 
 export default class GameView extends AbstractView {
-
   constructor(model) {
     super();
     this.model = model;
@@ -29,12 +28,6 @@ export default class GameView extends AbstractView {
   get template() {
     return `<header class="header-container"></header>
     <div class="level-container"></div>`;
-  }
-
-  bind() {
-    this.headerContainer = this.element.querySelector(`.header-container`);
-    this.levelContainer = this.element.querySelector(`.level-container`);
-    return super.bind();
   }
 
   updateHeader() {
@@ -57,9 +50,7 @@ export default class GameView extends AbstractView {
     const newLevel = new LevelView(this.model.state, question);
     update(this.levelContainer, newLevel);
     this.level = newLevel;
-    this.level.next = () => {
-      this.nextGame();
-    };
+    this.level.next = () => this.nextGame();
   }
 
   updateView() {
@@ -71,7 +62,7 @@ export default class GameView extends AbstractView {
     const answer = this.level.answer;
     const question = this.model.data[this.model.state.gameNumber];
     const userAnswer = {
-      isCorrectAnswer: answerIsCorrect(answer, question),
+      isCorrect: answerIsCorrect(answer, question),
       timeRemained: this.model.state.time
     };
     return userAnswer;
@@ -85,4 +76,9 @@ export default class GameView extends AbstractView {
 
   nextGame() {}
 
+  bind() {
+    this.headerContainer = this.element.querySelector(`.header-container`);
+    this.levelContainer = this.element.querySelector(`.level-container`);
+    return super.bind();
+  }
 }

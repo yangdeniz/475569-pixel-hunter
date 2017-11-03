@@ -1,11 +1,4 @@
-import {Points} from '../../data/data';
-
-const Result = {
-  CORRECT: `correct`,
-  WRONG: `wrong`,
-  FAST: `fast`,
-  SLOW: `slow`
-};
+import {Points, AnswerTypes} from '../../data/data';
 
 const getResult = (item) => {
   let wrongAnswers = 0;
@@ -15,17 +8,17 @@ const getResult = (item) => {
 
   for (const answer of item.stats) {
     switch (answer) {
-      case Result.WRONG:
+      case AnswerTypes.WRONG:
         wrongAnswers++;
         break;
-      case Result.CORRECT:
+      case AnswerTypes.CORRECT:
         correctAnswers++;
         break;
-      case Result.FAST:
+      case AnswerTypes.FAST:
         correctAnswers++;
         quickAnswers++;
         break;
-      case Result.SLOW:
+      case AnswerTypes.SLOW:
         correctAnswers++;
         slowAnswers++;
         break;
@@ -81,8 +74,8 @@ export default (stats) => {
   const adapted = [];
 
   for (const item of stats) {
-    if (!(item instanceof Object) || !(item.stats instanceof Array) || (typeof item.lives !== `number`)) {
-      continue;
+    if (!(item instanceof Object) || !(item.stats instanceof Array)) {
+      throw new Error(`Неверный формат ответа`);
     }
     const answers = [...item.stats];
 

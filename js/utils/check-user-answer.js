@@ -1,5 +1,4 @@
 export default (answer, question) => {
-
   if (!(question instanceof Object)) {
     throw new Error(`Ошибка: некорректный формат вопроса`);
   }
