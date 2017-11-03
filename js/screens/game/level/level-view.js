@@ -93,7 +93,11 @@ export default class LevelView extends AbstractView {
     };
 
     const onDivClick = (event) => {
-      const answer = gameOptions.indexOf(event.target);
+      let target = event.target;
+      if (target.tagName === `IMG`) {
+        target = target.parentNode;
+      }
+      const answer = gameOptions.indexOf(target);
       this.answer = answer;
       this.next();
     };
