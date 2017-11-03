@@ -17,9 +17,13 @@ export default class WarningView extends AbstractView {
     </div>`;
   }
 
+  returnBack() {}
+
+  continueGame() {}
+
   bind() {
-    this.element.onclick = (e) => {
-      const target = e.target;
+    this.element.onclick = (event) => {
+      const target = event.target;
       if (!target.classList.contains(`warning__btn`)) {
         return;
       }
@@ -32,9 +36,4 @@ export default class WarningView extends AbstractView {
       }
     };
   }
-
-  returnBack() {}
-
-  continueGame() {}
-
 }

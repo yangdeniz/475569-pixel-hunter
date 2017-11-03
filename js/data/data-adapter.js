@@ -13,34 +13,31 @@ const getCorrectAnswer = (answers) => {
 };
 
 const adaptAnswers = (answers) => {
-
   if (answers.length === 0) {
     throw new Error(`Отсутствуют ответы`);
   }
 
-  const questContent = new Set();
-  for (const item of answers) {
-    if (!(item instanceof Object) || !(item.image instanceof Object) || (typeof item.type !== `string`)) {
+  const adaptedAnswers = new Set();
+  for (const answer of answers) {
+    if (!(answer instanceof Object) || !(answer.image instanceof Object) || (typeof answer.type !== `string`)) {
       throw new Error(`Неверный формат ответа`);
     }
 
     const adaptedAnswer = {};
-    adaptedAnswer[`number`] = answers.indexOf(item) + 1;
-    adaptedAnswer[`image`] = item.image;
+    adaptedAnswer[`number`] = answers.indexOf(answer) + 1;
+    adaptedAnswer[`image`] = answer.image;
     if (answers.length === 3) {
-      adaptedAnswer[`isCorrectAnswer`] = item.type === getCorrectAnswer(answers);
+      adaptedAnswer[`isCorrectAnswer`] = (answer.type === getCorrectAnswer(answers));
     } else {
-      adaptedAnswer[`answer`] = (item.type === `painting`) ? `paint` : `photo`;
+      adaptedAnswer[`answer`] = (answer.type === `painting`) ? `paint` : `photo`;
     }
-    questContent.add(adaptedAnswer);
+    adaptedAnswers.add(adaptedAnswer);
   }
 
-  return questContent;
-
+  return adaptedAnswers;
 };
 
 export default (data) => {
-
   if (!(data instanceof Array)) {
     throw new Error(`Неверный формат данных`);
   }
@@ -58,5 +55,4 @@ export default (data) => {
   }
 
   return adapted;
-
 };

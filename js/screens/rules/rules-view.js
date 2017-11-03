@@ -1,7 +1,6 @@
 import AbstractView from '../../abstract-view';
 
 export default class RulesView extends AbstractView {
-
   get template() {
     return `<header class="header">
     <div class="header__back">
@@ -29,6 +28,10 @@ export default class RulesView extends AbstractView {
     </div>`;
   }
 
+  next() {}
+
+  returnBack() {}
+
   bind() {
     const input = this.element.querySelector(`.rules__input`);
     const button = this.element.querySelector(`.rules__button`);
@@ -36,7 +39,7 @@ export default class RulesView extends AbstractView {
 
     input.oninput = () => {
       const value = input.value;
-      if (value && value.trim().length > 0) {
+      if (value.trim().length > 0) {
         button.disabled = false;
       }
       if (!value) {
@@ -44,18 +47,11 @@ export default class RulesView extends AbstractView {
       }
     };
 
-    button.onclick = (e) => {
-      e.preventDefault();
+    button.onclick = (event) => {
+      event.preventDefault();
       this.next();
     };
 
-    back.onclick = () => {
-      this.returnBack();
-    };
+    back.onclick = () => this.returnBack();
   }
-
-  next() {}
-
-  returnBack() {}
-
 }

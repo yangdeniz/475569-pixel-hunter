@@ -6,7 +6,7 @@ import RulesScreen from './screens/rules/rules';
 import GameScreen from './screens/game/game';
 import StatsScreen from './screens/stats/stats';
 import {initialState} from './data/data';
-import adapt from './data/adapter';
+import adapt from './data/data-adapter';
 
 const ControllerId = {
   INTRO: ``,
@@ -67,7 +67,9 @@ export default class App {
   }
 
   static showStats(state) {
-    App.routes[ControllerId.STATS].init(state);
+    Loader.saveResults(state).then(() => {
+      App.routes[ControllerId.STATS].init(state);
+    });
   }
 
 }

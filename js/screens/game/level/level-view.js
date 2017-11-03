@@ -51,19 +51,9 @@ export default class LevelView extends AbstractView {
     </div>`;
   }
 
+  next() {}
+
   bind() {
-    const content = this.element.querySelector(`.game__content`);
-    const isManyOptionsQuestion = !!this.element.querySelector(`input[type="radio"]`);
-
-    const gameOptions = this.element.querySelectorAll(`.game__option`);
-
-    const gameAnswers = new Set();
-    let answerNumber = 1;
-    while (this.element.querySelector(`input[name="question${answerNumber}"]`)) {
-      gameAnswers.add(this.element.querySelectorAll(`input[name="question${answerNumber}"]`));
-      answerNumber++;
-    }
-
     const images = this.element.querySelectorAll(`.game__option img`);
     for (const image of images) {
       image.onload = () => {
@@ -81,41 +71,57 @@ export default class LevelView extends AbstractView {
       };
     }
 
-    const getSelectedAnswer = (answers) => {
-      for (const answer of answers) {
-        if (answer.checked) {
-          return answer.value;
+    const isManyOptionsQuestion = !!this.element.querySelector(`input[type="radio"]`);
+    let gameOptions = [];
+    if (isManyOptionsQuestion) {
+      let answerNumber = 1;
+      while (this.element.querySelector(`input[name="question${answerNumber}"]`)) {
+        gameOptions.push([...(this.element.querySelectorAll(`input[name="question${answerNumber}"]`))]);
+        answerNumber++;
+      }
+    } else {
+      gameOptions = [...(this.element.querySelectorAll(`.game__option`))];
+    }
+
+    const getSelectedAnswer = (options) => {
+      for (const option of options) {
+        if (option.checked) {
+          return option.value;
         }
       }
       return false;
     };
 
-    content.onclick = (e) => {
-      const target = e.target;
-      let answer;
-      if (isManyOptionsQuestion) {
-        if (target.type !== `radio`) {
-          return;
-        }
-        answer = [];
-        for (const item of gameAnswers) {
-          if (!getSelectedAnswer(item)) {
-            return;
-          }
-          answer.push(getSelectedAnswer(item));
-        }
-      } else {
-        if (!target.classList.contains(`game__option`)) {
-          return;
-        }
-        answer = [...gameOptions].indexOf(target);
+    const onDivClick = (event) => {
+      let target = event.target;
+      if (target.tagName === `IMG`) {
+        target = target.parentNode;
       }
-
+      const answer = gameOptions.indexOf(target);
       this.answer = answer;
-
       this.next();
     };
-  }
 
-  next() {}
+    const onInputClick = () => {
+      const answers = [];
+      for (const option of gameOptions) {
+        if (!getSelectedAnswer(option)) {
+          return;
+        }
+        answers.push(getSelectedAnswer(option));
+      }
+      this.answer = answers;
+      this.next();
+    };
+
+    for (const option of gameOptions) {
+      if (!isManyOptionsQuestion) {
+        option.onclick = onDivClick;
+      } else {
+        for (const item of option) {
+          item.onclick = onInputClick;
+        }
+      }
+    }
+  }
 }

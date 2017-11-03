@@ -5,19 +5,26 @@ const Points = Object.freeze({
   LIVES_BONUS: 50
 });
 
-const Time = Object.freeze({
+const TimeRemained = Object.freeze({
   TOTAL: 30,
-  QUICK_ANSWER_TIME_REMAINED: 20,
-  SLOW_ANSWER_TIME_REMAINED: 10
+  QUICK_ANSWER: 20,
+  SLOW_ANSWER: 10
 });
+
+const AnswerTypes = {
+  CORRECT: `correct`,
+  FAST: `fast`,
+  SLOW: `slow`,
+  WRONG: `wrong`
+};
 
 const initialState = Object.freeze({
   gameNumber: 0,
-  time: Time.TOTAL,
+  time: TimeRemained.TOTAL,
   livesRemained: 3,
   userAnswers: [],
   answersStats: new Array(10).fill(`unknown`),
   gameResult: -1
 });
 
-export {Points, Time, initialState};
+export {Points, TimeRemained, AnswerTypes, initialState};

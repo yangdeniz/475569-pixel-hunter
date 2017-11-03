@@ -1,18 +1,18 @@
 import StatsView from './stats-view';
+import adaptStats from './adapt-stats';
 import App from '../../application';
+import Loader from '../../loader';
 import showScreen from '../../utils/show-screen';
 
 class StatsScreen {
-  constructor(state) {
-    this.view = new StatsView(state);
-  }
-
   init(state) {
-    this.view = new StatsView(state);
-    showScreen(this.view.element);
-    this.view.returnBack = () => {
-      App.showGreeting();
-    };
+    const gameIsWon = (state.gameResult !== -1);
+    const view = new StatsView(gameIsWon);
+    showScreen(view.element);
+    view.returnBack = () => App.showGreeting();
+    Loader.loadResults().
+        then((stats) => adaptStats(stats)).
+        then((stats) => view.printStats(stats));
   }
 }
 

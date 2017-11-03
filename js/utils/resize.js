@@ -5,6 +5,7 @@ export default (container, image) => {
     width: 0,
     height: 0
   };
+
   if (imageProportion < containerProportion) {
     newImage.height = Math.floor(container.height);
     newImage.width = Math.floor(container.height * imageProportion);
@@ -12,5 +13,6 @@ export default (container, image) => {
     newImage.width = Math.floor(container.width);
     newImage.height = Math.floor(container.width / imageProportion);
   }
+
   return newImage;
 };

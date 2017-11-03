@@ -4,31 +4,18 @@ import App from '../../application';
 import {initialState} from '../../data/data';
 import showScreen from '../../utils/show-screen';
 
-class GameScreen {
+export default class GameScreen {
   constructor(data, state = initialState) {
     this.model = new GameModel(data, state);
     this.view = new GameView(this.model);
     this.answers = [];
 
-    this.model.nextGame = () => {
-      App.startGame(this.model.state);
-    };
+    this.model.nextGame = () => App.startGame(this.model.state);
+    this.model.gameOver = () => App.showStats(this.model.state);
 
-    this.model.gameOver = () => {
-      App.showStats(this.model.state);
-    };
-
-    this.view.pause = () => {
-      this.stopTimer();
-    };
-
-    this.view.continueGame = () => {
-      this.tick();
-    };
-
-    this.view.stopGame = () => {
-      App.showGreeting();
-    };
+    this.view.pause = () => this.stopTimer();
+    this.view.continueGame = () => this.tick();
+    this.view.stopGame = () => App.showGreeting();
 
     this.view.nextGame = () => {
       this.stopTimer();
@@ -70,11 +57,9 @@ class GameScreen {
   }
 
   saveAnswer(answer = {
-    isCorrectAnswer: false,
+    isCorrect: false,
     timeRemained: 0
   }) {
     this.answers.push(answer);
   }
 }
-
-export default GameScreen;

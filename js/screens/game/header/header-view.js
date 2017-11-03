@@ -27,26 +27,25 @@ export default class HeaderView extends AbstractView {
     </header>`;
   }
 
-  bind() {
-    const back = this.element.querySelector(`.back`);
-    back.onclick = () => {
-      this.showWarningScreen();
-    };
-  }
-
   updateTimer() {
     const timerTemplate = `<h1 class="game__timer">${this.state.time}</h1>`;
     const newTimerElement = getElementFromTemplate(timerTemplate).firstChild;
     const oldTimerElement = this.element.querySelector(`.game__timer`);
+    const header = this.element.querySelector(`.header`);
     if (this.state.time <= 5) {
-      this.element.querySelector(`.header`).removeChild(oldTimerElement);
+      header.removeChild(oldTimerElement);
       setTimeout(() => {
-        this.element.querySelector(`.header`).insertBefore(newTimerElement, this.element.querySelector(`.game__lives`));
+        header.insertBefore(newTimerElement, this.element.querySelector(`.game__lives`));
       }, 500);
     } else {
-      this.element.querySelector(`.header`).replaceChild(newTimerElement, oldTimerElement);
+      header.replaceChild(newTimerElement, oldTimerElement);
     }
   }
 
   showWarningScreen() {}
+
+  bind() {
+    const back = this.element.querySelector(`.back`);
+    back.onclick = () => this.showWarningScreen();
+  }
 }

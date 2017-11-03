@@ -1,8 +1,7 @@
-import tick from '../../utils/tick';
-import getNextGameState from '../../utils/get-next-game-state';
+import tick from '../../data/tick';
+import getNextGameState from '../../data/get-next-game-state';
 
 export default class GameModel {
-
   constructor(data, state) {
     this.data = data;
     this.state = state;
@@ -29,5 +28,4 @@ export default class GameModel {
   nextGame() {}
 
   gameOver() {}
-
 }
