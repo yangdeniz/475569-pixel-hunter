@@ -1,5 +1,5 @@
 import GreetingView from './greeting-view';
-import App from '../../application';
+import Application from '../../application';
 import showScreen from '../../utils/show-screen';
 
 export default class GreetingScreen {
@@ -9,7 +9,7 @@ export default class GreetingScreen {
 
   init() {
     this.show();
-    this.view.next = () => App.showRules();
+    this.view.next = Application.showRules;
   }
 
   show() {

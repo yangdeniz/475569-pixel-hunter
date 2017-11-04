@@ -16,7 +16,7 @@ export default class GameView extends AbstractView {
     this.model = model;
     this.warning = new WarningView();
     this.warning.continueGame = () => {
-      fadeOut(this.warning.element, 50);
+      fadeOut(this.warning.element, 200);
       this.continueGame();
     };
     this.warning.returnBack = () => {
@@ -36,7 +36,7 @@ export default class GameView extends AbstractView {
     this.header = newHeader;
     this.header.showWarningScreen = () => {
       this.pause();
-      fadeIn(this.warning.element, 50);
+      fadeIn(this.warning.element, 200);
     };
   }
 
@@ -50,7 +50,7 @@ export default class GameView extends AbstractView {
     const newLevel = new LevelView(this.model.state, question);
     update(this.levelContainer, newLevel);
     this.level = newLevel;
-    this.level.next = () => this.nextGame();
+    this.level.next = this.nextGame;
   }
 
   updateView() {

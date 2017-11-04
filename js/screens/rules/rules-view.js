@@ -38,12 +38,11 @@ export default class RulesView extends AbstractView {
     const back = this.element.querySelector(`.back`);
 
     input.oninput = () => {
-      const value = input.value;
-      if (value.trim().length > 0) {
-        button.disabled = false;
-      }
+      const value = input.value.trim();
       if (!value) {
         button.disabled = true;
+      } else {
+        button.disabled = false;
       }
     };
 

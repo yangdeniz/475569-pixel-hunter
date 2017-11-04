@@ -7,7 +7,9 @@ const addElement = (element) => {
 };
 
 const removeElement = (element) => {
-  mainElement.removeChild(element);
+  if ([...mainElement.childNodes].indexOf(element) >= 0) {
+    mainElement.removeChild(element);
+  }
   for (const child of mainElement.children) {
     if (child.style.position === `absolute`) {
       child.style.position = `relative`;
@@ -16,29 +18,41 @@ const removeElement = (element) => {
 };
 
 const fadeIn = (element, time) => {
-  let opacity = 0;
-  element.style.opacity = opacity;
+  element.style.opacity = 0;
   addElement(element);
-  const timer = setInterval(() => {
-    if (opacity > 1) {
-      clearInterval(timer);
+
+  let start = null;
+  const animationHandler = (timestamp) => {
+    if (!start) {
+      start = timestamp;
     }
-    opacity += 1 / time;
-    element.style.opacity = opacity;
-  }, time / 1000);
+    const progress = timestamp - start;
+    element.style.opacity = progress / time;
+    if (progress >= time) {
+      return;
+    }
+    window.requestAnimationFrame(animationHandler);
+  };
+
+  window.requestAnimationFrame(animationHandler);
 };
 
 const fadeOut = (element, time) => {
-  let opacity = 1;
-  element.style.opacity = opacity;
-  const timer = setInterval(() => {
-    if (opacity < 0) {
-      clearInterval(timer);
-      removeElement(element);
+  let start = null;
+  const animationHandler = (timestamp) => {
+    if (!start) {
+      start = timestamp;
     }
-    opacity -= 1 / time;
-    element.style.opacity = opacity;
-  }, time / 1000);
+    const progress = timestamp - start;
+    element.style.opacity = 1.0 - progress / time;
+    if (progress >= time) {
+      removeElement(element);
+      return;
+    }
+    window.requestAnimationFrame(animationHandler);
+  };
+
+  window.requestAnimationFrame(animationHandler);
 };
 
 export {fadeIn, fadeOut};

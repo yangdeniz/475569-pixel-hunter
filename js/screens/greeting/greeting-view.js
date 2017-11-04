@@ -19,12 +19,17 @@ export default class GreetingView extends AbstractView {
 
   next() {}
 
+  stopAnimation() {
+    const mainElement = document.querySelector(`main`);
+    mainElement.removeChild(this.element);
+  }
+
   bind() {
     const button = this.element.querySelector(`.greeting__continue`);
     button.onclick = () => {
-      const opacity = this.element.style.opacity;
-      if (opacity && opacity < 1) {
-        return;
+      const animationInProcess = this.element.style.opacity && this.element.style.opacity < 1;
+      if (animationInProcess) {
+        this.stopAnimation();
       }
       this.next();
     };
