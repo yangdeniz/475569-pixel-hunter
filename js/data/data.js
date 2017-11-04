@@ -1,15 +1,15 @@
-const Points = Object.freeze({
+const Points = {
   CORRECT_ANSWER_POINTS: 100,
   QUICK_ANSWER_BONUS: 50,
   SLOW_ANSWER_PENALTY: 50,
   LIVES_BONUS: 50
-});
+};
 
-const TimeRemained = Object.freeze({
+const TimeRemained = {
   TOTAL: 30,
   QUICK_ANSWER: 20,
   SLOW_ANSWER: 10
-});
+};
 
 const AnswerTypes = {
   CORRECT: `correct`,

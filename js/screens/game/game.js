@@ -1,6 +1,6 @@
 import GameView from './game-view';
 import GameModel from './game-model';
-import App from '../../application';
+import Application from '../../application';
 import {initialState} from '../../data/data';
 import showScreen from '../../utils/show-screen';
 
@@ -10,12 +10,12 @@ export default class GameScreen {
     this.view = new GameView(this.model);
     this.answers = [];
 
-    this.model.nextGame = () => App.startGame(this.model.state);
-    this.model.gameOver = () => App.showStats(this.model.state);
+    this.model.nextGame = () => Application.startGame(this.model.state);
+    this.model.gameOver = () => Application.showStats(this.model.state);
 
     this.view.pause = () => this.stopTimer();
     this.view.continueGame = () => this.tick();
-    this.view.stopGame = () => App.showGreeting();
+    this.view.stopGame = Application.showGreeting;
 
     this.view.nextGame = () => {
       this.stopTimer();

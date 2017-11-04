@@ -1,6 +1,11 @@
 import AbstractView from '../../abstract-view';
 
 export default class IntroView extends AbstractView {
+  constructor(data) {
+    super();
+    this.data = data;
+  }
+
   get template() {
     return `<div id="main" class="central__content">
     <div id="intro" class="intro">
@@ -10,7 +15,8 @@ export default class IntroView extends AbstractView {
   </div>`;
   }
 
-  loadImages(questions) {
+  loadImages() {
+    const questions = this.data;
     const images = new Set();
     for (const question of questions) {
       const items = [...question.content];
@@ -29,7 +35,8 @@ export default class IntroView extends AbstractView {
 
     for (const image of [...images]) {
       const img = document.createElement(`img`);
-      img.onload = img.onerror = onImageLoad;
+      img.onload = onImageLoad;
+      img.onerror = onImageLoad;
       img.src = image;
     }
   }

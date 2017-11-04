@@ -17,11 +17,11 @@ const ControllerId = {
   STATS: `stats`
 };
 
-export default class App {
+export default class Application {
 
   static init(data) {
-    App.routes = {
-      [ControllerId.INTRO]: new IntroScreen(),
+    Application.routes = {
+      [ControllerId.INTRO]: new IntroScreen(data),
       [ControllerId.GREETING]: new GreetingScreen(),
       [ControllerId.GREETING_FADE]: new GreetingFadeScreen(),
       [ControllerId.RULES]: new RulesScreen(),
@@ -36,18 +36,14 @@ export default class App {
     window.onhashchange = hashChangeHandler;
     hashChangeHandler();
 
-    App.routes[ControllerId.INTRO].view.loadImages(data);
+    Application.routes[ControllerId.INTRO].init(data);
   }
 
   static changeHash(id) {
-    const controller = App.routes[id];
+    const controller = Application.routes[id];
     if (controller) {
       controller.init();
     }
-  }
-
-  static showIntro() {
-    location.hash = ControllerId.INTRO;
   }
 
   static showGreeting() {
@@ -63,12 +59,12 @@ export default class App {
   }
 
   static startGame(state = initialState) {
-    App.routes[ControllerId.GAME].init(state);
+    Application.routes[ControllerId.GAME].init(state);
   }
 
   static showStats(state) {
     Loader.saveResults(state).then(() => {
-      App.routes[ControllerId.STATS].init(state);
+      Application.routes[ControllerId.STATS].init(state);
     });
   }
 
@@ -76,5 +72,5 @@ export default class App {
 
 Loader.loadData().
     then(adapt).
-    then((questData) => App.init(questData)).
+    then((questData) => Application.init(questData)).
     catch(window.console.error);

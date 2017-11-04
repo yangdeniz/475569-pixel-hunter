@@ -1,5 +1,5 @@
 import RulesView from './rules-view';
-import App from '../../application';
+import Application from '../../application';
 import showScreen from '../../utils/show-screen';
 
 class RulesScreen {
@@ -9,8 +9,8 @@ class RulesScreen {
 
   init() {
     showScreen(this.view.element);
-    this.view.next = () => App.startGame();
-    this.view.returnBack = () => App.showGreeting();
+    this.view.next = Application.startGame;
+    this.view.returnBack = Application.showGreeting;
   }
 }
 
