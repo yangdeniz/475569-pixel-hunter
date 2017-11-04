@@ -27,6 +27,8 @@ export default class GreetingView extends AbstractView {
   bind() {
     const button = this.element.querySelector(`.greeting__continue`);
     button.onclick = () => {
+      // Проверяем, завершилась ли анимация (плавное появление экрана), если нет, то сначала останавливаем анимацию
+      // если экран без анимации, сначала проверяем наличие свойства opacity, чтобы не удалить экран раньше
       const animationInProcess = this.element.style.opacity && this.element.style.opacity < 1;
       if (animationInProcess) {
         this.stopAnimation();
