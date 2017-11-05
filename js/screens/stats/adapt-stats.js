@@ -1,5 +1,8 @@
 import {Points, AnswerTypes} from '../../data/data';
 
+const QUESTIONS_TOTAL = 10;
+const MAX_POSSIBLE_WRONG_ANSWERS = 3;
+
 const getResult = (item) => {
   let wrongAnswers = 0;
   let correctAnswers = 0;
@@ -25,7 +28,7 @@ const getResult = (item) => {
     }
   }
 
-  if (wrongAnswers > 3) {
+  if (wrongAnswers > MAX_POSSIBLE_WRONG_ANSWERS) {
     return -1;
   }
 
@@ -79,11 +82,11 @@ export default (stats) => {
     }
     const answers = [...item.stats];
 
-    while (answers.length < 10) {
+    while (answers.length < QUESTIONS_TOTAL) {
       answers.push(`unknown`);
     }
 
-    const result = (item.stats.length < 10) ? -1 : getResult(item);
+    const result = (item.stats.length < QUESTIONS_TOTAL) ? -1 : getResult(item);
 
     const adaptedItem = {
       answersStats: answers,

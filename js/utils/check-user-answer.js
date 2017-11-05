@@ -3,20 +3,23 @@ export default (answer, question) => {
     throw new Error(`Ошибка: некорректный формат вопроса`);
   }
 
-  const correctAnswer = [...question.content];
+  const questionContent = [...question.content];
 
-  if ((correctAnswer[0].hasOwnProperty(`answer`) && !(answer instanceof Array))
-  || (correctAnswer[0].hasOwnProperty(`isCorrectAnswer`) && (typeof answer !== `number`))) {
+  if ((questionContent[0].hasOwnProperty(`answer`) && !(answer instanceof Array))
+  || (questionContent[0].hasOwnProperty(`isCorrectAnswer`) && (typeof answer !== `number`))) {
     throw new Error(`Ошибка: некорректный формат ответа`);
   }
 
   if (answer instanceof Array) {
-    for (let i = 0; i < answer.length; i++) {
-      if (answer[i] !== correctAnswer[i].answer) {
+    let counter = 0;
+    for (const item of answer) {
+      const correctAnswer = questionContent[counter].answer;
+      counter++;
+      if (item !== correctAnswer) {
         return false;
       }
     }
-  } else if (!correctAnswer[answer].isCorrectAnswer) {
+  } else if (!questionContent[answer].isCorrectAnswer) {
     return false;
   }
   return true;

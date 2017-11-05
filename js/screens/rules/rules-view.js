@@ -39,11 +39,7 @@ export default class RulesView extends AbstractView {
 
     input.oninput = () => {
       const value = input.value.trim();
-      if (!value) {
-        button.disabled = true;
-      } else {
-        button.disabled = false;
-      }
+      button.disabled = !value;
     };
 
     button.onclick = (event) => {

@@ -1,3 +1,5 @@
+const ONE_OF_THREE_QUESTION_ANSWERS_TOTAL = 3;
+
 const getCorrectAnswer = (answers) => {
   let paint = 0;
   let photo = 0;
@@ -26,7 +28,7 @@ const adaptAnswers = (answers) => {
     const adaptedAnswer = {};
     adaptedAnswer[`number`] = answers.indexOf(answer) + 1;
     adaptedAnswer[`image`] = answer.image;
-    if (answers.length === 3) {
+    if (answers.length === ONE_OF_THREE_QUESTION_ANSWERS_TOTAL) {
       adaptedAnswer[`isCorrectAnswer`] = (answer.type === getCorrectAnswer(answers));
     } else {
       adaptedAnswer[`answer`] = (answer.type === `painting`) ? `paint` : `photo`;
