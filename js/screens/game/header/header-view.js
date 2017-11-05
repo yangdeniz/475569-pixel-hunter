@@ -1,6 +1,8 @@
 import AbstractView from '../../../abstract-view';
 import getElementFromTemplate from '../../../utils/get-element-from-template';
 
+const START_BLINK_TIME = 5;
+
 export default class HeaderView extends AbstractView {
   constructor(state) {
     super();
@@ -32,7 +34,7 @@ export default class HeaderView extends AbstractView {
     const newTimerElement = getElementFromTemplate(timerTemplate).firstChild;
     const oldTimerElement = this.element.querySelector(`.game__timer`);
     const header = this.element.querySelector(`.header`);
-    if (this.state.time <= 5) {
+    if (this.state.time <= START_BLINK_TIME) {
       header.removeChild(oldTimerElement);
       setTimeout(() => {
         header.insertBefore(newTimerElement, this.element.querySelector(`.game__lives`));
