@@ -4,6 +4,7 @@ const footer = mainElement.querySelector(`footer`);
 const addElement = (element) => {
   mainElement.insertBefore(element, footer);
   element.style.position = `absolute`;
+  element.style.top = 0;
 };
 
 const removeElement = (element) => {
